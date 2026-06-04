@@ -26,12 +26,12 @@
   --social-bg: rgba(255, 255, 255, 0.72);
   --shadow: var(--shadow-card);
 
-  --sans: 'Noto Sans Arabic', system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: 'Marhey', 'Noto Sans Arabic', system-ui, 'Segoe UI', Roboto, sans-serif;
-  --urdu: 'Noto Nastaliq Urdu', serif;
+  --sans: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif;
+  --heading: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif;
+  --urdu: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif;
   --mono: ui-monospace, Consolas, monospace;
 
-  font: 18px/145% var(--sans);
+  font: 17px/170% var(--sans);
   letter-spacing: 0;
   color-scheme: light;
   color: var(--text);
@@ -47,8 +47,11 @@
 }
 
 html {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
   scroll-behavior: smooth;
-  scroll-padding-top: 5rem;
+  scroll-padding-top: 6rem;
 }
 
 [data-theme='dark'] {
@@ -112,6 +115,9 @@ html {
 }
 
 body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
   margin: 0;
   background: var(--color-bg);
   color: var(--color-text-main);
@@ -120,8 +126,31 @@ body {
 
 #root {
   width: 100%;
+  max-width: 100%;
   min-height: 100svh;
   box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+img,
+svg,
+video,
+canvas {
+  max-width: 100%;
+}
+
+h1,
+h2,
+h3,
+p,
+a,
+button {
+  text-wrap: pretty;
 }
 
 h1,
@@ -138,6 +167,13 @@ h2 {
 }
 p {
   margin: 0;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
 }
 
 code {

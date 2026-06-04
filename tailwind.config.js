@@ -5,13 +5,21 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        urdu: ['"Noto Nastaliq Urdu"', 'serif'],
-        arabic: ['"Noto Sans Arabic"', 'sans-serif'],
-        marhey: ['"Marhey"', 'cursive'],
+        urdu: ['"Jameel Noori Nastaleeq"', '"Noto Nastaliq Urdu"', 'serif'],
+        arabic: ['"Jameel Noori Nastaleeq"', '"Noto Nastaliq Urdu"', 'serif'],
+        marhey: ['"Jameel Noori Nastaleeq"', '"Noto Nastaliq Urdu"', 'serif'],
       },
       boxShadow: {
         theme: 'var(--shadow-main)',
         'card-theme': 'var(--shadow-card)',
+      },
+      fontSize: {
+        'theme-title': ['clamp(1.8rem, 1.1rem + 2.2vw, 3.2rem)', { lineHeight: '1.9' }],
+        'theme-kicker': ['1.5rem', { lineHeight: '1.7' }],
+        'theme-body': ['1.75rem', { lineHeight: '2.25rem' }],
+        'theme-nav': ['1.5rem', { lineHeight: '1.6' }],
+        'theme-button': ['1.5rem', { lineHeight: '1.7' }],
+        'theme-detail': ['0.875rem', { lineHeight: '1.75rem' }],
       },
       colors: {
         themeBg: 'var(--color-bg)',

@@ -48,7 +48,7 @@ function ThemeToggle({ theme, onToggle }) {
     <button
       type="button"
       onClick={onToggle}
-      className="theme-toggle-float absolute left-4 top-1/2 grid size-10 -translate-y-1/2 place-items-center rounded-full border border-themeBorder bg-themeBg text-themeText shadow-card-theme transition hover:border-themePrimary hover:text-themePrimary"
+      className="theme-toggle-float absolute left-4 top-1/2 grid size-11 -translate-y-1/2 place-items-center rounded-full border border-themeBorder bg-themeBg text-themeText shadow-card-theme transition hover:border-themePrimary hover:text-themePrimary"
       aria-label={label}
       title={label}
     >

@@ -4,6 +4,52 @@
 
 .site-shell {
   isolation: isolate;
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: clip;
+}
+
+.splash-screen {
+  overflow: hidden;
+  animation: splashExit 420ms ease 1.2s both;
+}
+
+.splash-ambient {
+  background:
+    linear-gradient(135deg, rgba(0, 208, 148, 0.18), transparent 42%),
+    linear-gradient(315deg, rgba(0, 77, 97, 0.14), transparent 46%),
+    radial-gradient(circle at 50% 44%, rgba(0, 208, 148, 0.18), transparent 28%);
+  animation: splashAmbient 4s ease-in-out infinite alternate;
+}
+
+.splash-card {
+  animation: splashCardIn 640ms ease both;
+}
+
+.splash-logo {
+  animation: splashLogoPulse 1.35s ease-in-out infinite;
+}
+
+.splash-loader {
+  display: flex;
+  gap: 0.5rem;
+  direction: ltr;
+}
+
+.splash-loader span {
+  width: 0.65rem;
+  height: 0.65rem;
+  border-radius: 999px;
+  background: var(--color-primary);
+  animation: splashDot 900ms ease-in-out infinite;
+}
+
+.splash-loader span:nth-child(2) {
+  animation-delay: 130ms;
+}
+
+.splash-loader span:nth-child(3) {
+  animation-delay: 260ms;
 }
 
 .navbar-enter {
@@ -11,7 +57,12 @@
 }
 
 .brand-mark {
+  min-width: 0;
   animation: heroReveal 620ms ease 90ms both;
+}
+
+.brand-mark > span:last-child {
+  min-width: 0;
 }
 
 .brand-mark > span:first-child {
@@ -131,11 +182,29 @@
     box-shadow 260ms ease;
 }
 
+.slider-image-card {
+  aspect-ratio: 16 / 10;
+}
+
+.slider-image {
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 320ms ease;
+}
+
+.slider-panel:hover .slider-image {
+  transform: scale(1.025);
+}
+
 .slider-card:hover {
   transform: translateY(-4px);
 }
 
 .slider-tab {
+  display: grid;
+  min-height: 3.35rem;
+  place-items: center;
   transform: translateY(0);
 }
 
@@ -145,7 +214,7 @@
 
 .feature-card,
 .request-card,
-.credential-card {
+.contact-info-card {
   transition:
     transform 260ms ease,
     border-color 260ms ease,
@@ -154,6 +223,12 @@
 
 .feature-card {
   min-height: 18rem;
+}
+
+.contact-info-card h2,
+.footer-shell a,
+.footer-shell span {
+  overflow-wrap: anywhere;
 }
 
 .feature-card-topline {
@@ -183,7 +258,7 @@
 
 .feature-card:hover,
 .request-card:hover,
-.credential-card:hover {
+.contact-info-card:hover {
   transform: translateY(-6px);
   border-color: var(--color-primary);
   box-shadow:
@@ -200,26 +275,8 @@
   animation: dotPulse 3.4s ease-in-out infinite;
 }
 
-.credential-card {
-  background:
-    linear-gradient(135deg, rgba(0, 208, 148, 0.1), transparent 42%),
-    color-mix(in srgb, var(--color-surface) 92%, transparent);
-}
-
-.credential-field {
-  transition:
-    transform 220ms ease,
-    border-color 220ms ease,
-    box-shadow 220ms ease;
-}
-
-.credential-field:hover {
-  transform: translateY(-3px);
-  border-color: var(--color-primary);
-  box-shadow: 0 12px 28px rgba(0, 208, 148, 0.12);
-}
-
 .request-card input {
+  min-height: 3.45rem;
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35);
 }
 
@@ -230,7 +287,44 @@
 }
 
 .footer-shell {
+  line-height: 1.7;
   box-shadow: 0 -18px 50px rgba(15, 23, 42, 0.06);
+}
+
+.footer-shell p,
+.footer-shell a,
+.footer-shell span {
+  line-height: 1.7;
+}
+
+.footer-cta-kicker {
+  font-size: clamp(1.25rem, 1.12rem + 0.45vw, 1.55rem);
+}
+
+.footer-cta-title {
+  font-size: clamp(1.65rem, 1.25rem + 1vw, 2.35rem);
+  line-height: 1.75;
+}
+
+.footer-cta-button {
+  font-size: clamp(1.2rem, 1.08rem + 0.35vw, 1.45rem);
+}
+
+.footer-brand-name {
+  font-size: clamp(1.35rem, 1.18rem + 0.45vw, 1.65rem);
+}
+
+.footer-section-title {
+  font-size: clamp(1.05rem, 0.98rem + 0.25vw, 1.2rem);
+}
+
+.footer-body-text,
+.footer-link {
+  font-size: clamp(0.98rem, 0.92rem + 0.18vw, 1.08rem);
+}
+
+.footer-bottom-text {
+  font-size: clamp(0.9rem, 0.86rem + 0.15vw, 1rem);
 }
 
 .footer-cta {
@@ -302,6 +396,7 @@
 .hero-action:hover,
 .soft-panel:hover,
 .hero-dashboard:hover,
+.slider-image-card:hover,
 .slider-card:hover,
 .hero-stat-card:hover {
   box-shadow:
@@ -361,6 +456,7 @@
 }
 
 .hero-stat-card {
+  min-height: 7rem;
   transition:
     transform 220ms ease,
     border-color 220ms ease,
@@ -382,6 +478,63 @@
 
 .hero-metric-dark {
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+@keyframes splashExit {
+  to {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+@keyframes splashAmbient {
+  from {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+
+  to {
+    transform: scale(1.06);
+    opacity: 1;
+  }
+}
+
+@keyframes splashCardIn {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes splashLogoPulse {
+  0%,
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 rgba(0, 208, 148, 0);
+  }
+
+  50% {
+    transform: scale(1.06);
+    box-shadow: 0 0 34px rgba(0, 208, 148, 0.34);
+  }
+}
+
+@keyframes splashDot {
+  0%,
+  100% {
+    opacity: 0.38;
+    transform: translateY(0);
+  }
+
+  50% {
+    opacity: 1;
+    transform: translateY(-0.35rem);
+  }
 }
 
 @keyframes heroAmbient {
@@ -591,6 +744,11 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .splash-screen,
+  .splash-ambient,
+  .splash-card,
+  .splash-logo,
+  .splash-loader span,
   .hero-ambient,
   .site-ambient,
   .site-glow,
@@ -635,7 +793,7 @@
 
   .feature-card,
   .request-card,
-  .credential-card {
+  .contact-info-card {
     border-radius: 1rem;
   }
 }
