@@ -1,15 +1,16 @@
 import { useEffect, useState } from 'react'
 
+const LANDING_THEME_KEY = 'madarsa_landing_theme'
+
 export function useTheme() {
   const [theme, setTheme] = useState(() => {
     if (typeof window === 'undefined') return 'light'
 
-    return localStorage.getItem('theme') || 'light'
+    return localStorage.getItem(LANDING_THEME_KEY) || 'light'
   })
 
   useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme)
-    localStorage.setItem('theme', theme)
+    localStorage.setItem(LANDING_THEME_KEY, theme)
   }, [theme])
 
   const toggleTheme = () => {

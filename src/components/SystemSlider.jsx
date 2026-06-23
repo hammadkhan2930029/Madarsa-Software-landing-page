@@ -1,36 +1,45 @@
-import { useState } from 'react'
-import slideFour from '../assets/four.png'
-import slideOne from '../assets/one.png'
-import slideThree from '../assets/three.png'
-import slideTwo from '../assets/two.png'
+﻿import { useMemo, useState } from 'react'
 import { slides } from '../data/landingData'
+import { getAssetUrl, localAssets } from '../utils/assetResolver'
 
-const slideImages = [slideOne, slideTwo, slideThree, slideFour]
+const fallbackImages = [
+  localAssets.slideOne,
+  localAssets.slideTwo,
+  localAssets.slideThree,
+  localAssets.slideFour,
+]
 
-function SystemSlider() {
+function SystemSlider({ slidesData = slides }) {
   const [activeSlide, setActiveSlide] = useState(0)
-  const slide = slides[activeSlide]
+  const items = slidesData.length ? slidesData : slides
+  const safeActiveSlide = activeSlide >= items.length ? 0 : activeSlide
+  const slide = items[safeActiveSlide] || items[0]
+  const slideImages = useMemo(() => (
+    items.map((item, index) => getAssetUrl(item.imageUrl, fallbackImages[index % fallbackImages.length]))
+  ), [items])
+
+  if (!slide) return null
 
   return (
     <section id="slider" className="relative z-10 border-y border-themeBorder bg-transparent">
-      <div className="mx-auto grid max-w-7xl gap-8 px-4 py-14 sm:px-6 lg:grid-cols-[1fr_0.86fr] lg:items-center lg:px-8 lg:[direction:ltr]">
-        <div className="slider-panel soft-panel rounded-xl border border-themeBorder bg-themeBg p-4 shadow-card-theme [direction:rtl]">
-          <div className="slider-image-card overflow-hidden rounded-lg border border-themeBorder bg-themeSurface shadow-card-theme">
+      <div className="slider-equal-grid mx-auto grid max-w-7xl gap-8 px-4 py-16 sm:px-6 lg:grid-cols-[1fr_0.86fr] lg:px-8 lg:[direction:ltr]">
+        <div className="slider-panel soft-panel rounded-lg border border-themeBorder bg-themeBg p-4 shadow-card-theme [direction:rtl]">
+          <div className="slider-image-card overflow-hidden rounded-md border border-themeBorder bg-themeSurface shadow-card-theme">
             <img
-              src={slideImages[activeSlide]}
+              src={slideImages[safeActiveSlide]}
               alt={`${slide.label} module preview`}
               className="slider-image block w-full"
             />
           </div>
 
           <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
-            {slides.map((item, index) => (
+            {items.map((item, index) => (
               <button
-                key={item.label}
+                key={`${item.label}-${index}`}
                 type="button"
                 onClick={() => setActiveSlide(index)}
                 className={`slider-tab rounded-md border px-3 py-3 text-theme-button font-bold transition ${
-                  activeSlide === index
+                  safeActiveSlide === index
                     ? 'border-themePrimary bg-themePrimary text-white'
                     : 'border-themeBorder bg-themeSurface text-themeText hover:border-themePrimary'
                 }`}
@@ -41,23 +50,25 @@ function SystemSlider() {
           </div>
         </div>
 
-        <div className="page-reveal text-right [direction:rtl]">
-          <p className="text-theme-kicker font-bold text-themePrimary">سسٹم سلائیڈر</p>
-          <h2 className="mt-3 font-urdu text-theme-title font-bold text-themeText">
-            {slide.label} ماڈیول صاف اور منظم انداز میں۔
+        <div className="slider-copy page-reveal text-right [direction:rtl]">
+          <div className="slider-copy-heading">
+            <p className="text-[1.35rem] font-bold leading-9 text-themePrimary">سسٹم سلائیڈر</p>
+          <h2 className="mt-3 font-urdu text-[3rem] font-bold leading-[1.8] text-themeText">
+            {slide.title}
           </h2>
-          <div className="slider-card mt-5 rounded-lg border border-themeBorder bg-themeSurface p-6 text-right shadow-card-theme">
-            <span className="rounded-md bg-themePrimary/10 px-3 py-1 text-theme-kicker font-bold text-themePrimary">
+          </div>
+          <div className="slider-card mt-5 rounded-lg border border-themeBorder bg-themeSurface p-8 text-right shadow-card-theme">
+            <span className="rounded-md bg-themePrimary/10 px-4 py-2 text-[1.25rem] font-bold leading-8 text-themePrimary">
               {slide.label}
             </span>
-            <h3 className="mt-5 max-w-2xl font-urdu text-theme-body font-bold text-themeText">
-              {slide.title}
+            <h3 className="mt-7 max-w-2xl font-urdu text-[1.7rem] font-bold leading-[2.15] text-themeText">
+              {slide.description || slide.title}
             </h3>
             <div className="mt-8 flex items-end gap-4">
-              <p className="text-theme-title font-black text-themePrimary">
+              <p className="text-[3rem] font-black leading-none text-themePrimary">
                 {slide.stat}
               </p>
-              <p className="pb-2 text-theme-detail font-bold text-slate-500 dark:text-slate-400">
+              <p className="pb-1 text-[1.05rem] font-bold leading-7 text-slate-500 dark:text-slate-400">
                 {slide.statLabel}
               </p>
             </div>

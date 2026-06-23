@@ -1,24 +1,35 @@
-import { footerLinks } from '../data/landingData'
+﻿import { footerLinks } from '../data/landingData'
+import { localAssets } from '../utils/assetResolver'
 
 const getRouteHref = (href) => {
-  if (href === '#contact') {
-    return '/contact'
-  }
-
-  if (href.startsWith('#')) {
-    return `/${href}`
-  }
-
-  return href
+  if (href === '#contact') return '/contact'
+  if (href?.startsWith('#')) return `/${href}`
+  return href || '/'
 }
 
-function Footer({ onNavigate }) {
+const fallbackFooter = {
+  ctaKicker: 'مدرسہ مینجمنٹ کو آج ہی آسان بنائیں',
+  ctaTitle: 'مکمل ڈیش بورڈ دیکھیں اور اپنی ٹیم کے لئے بہترین فلو منتخب کریں۔',
+  ctaButton: 'ڈیمو درخواست دیں',
+  ctaHref: '/contact',
+  description: 'جدید مدرسہ مینجمنٹ کے لئے مکمل سافٹ ویئر حل۔',
+  copyright: 'کاپی رائٹ 2026 مدرسہ سافٹ ویئر۔ تمام حقوق محفوظ ہیں۔',
+}
+
+
+function Footer({ theme, onNavigate, footer, navLinks = footerLinks, contactItems = [] }) {
+  const brandLogo = theme === 'dark' ? localAssets.darkLogo : localAssets.lightLogo
+  const content = footer || fallbackFooter
+  const visibleLinks = navLinks.length ? navLinks : footerLinks
+  const email = contactItems.find((item) => item.label?.includes('میل'))?.value || 'info@madrasasoftware.com'
+  const phone = contactItems.find((item) => item.label?.includes('فون'))?.value || '+92-331-9998780'
+  const address = contactItems.find((item) => item.label?.includes('پتہ'))?.value
+    || 'R-5, Row 5, Block D, NCECHS, Gulshan-e-Iqbal Block 10A, Rashid Minhas Road, Karachi, Pakistan.'
+
   const handleRouteClick = (event, href) => {
     const routeHref = getRouteHref(href)
 
-    if (!routeHref.startsWith('/')) {
-      return
-    }
+    if (!routeHref.startsWith('/')) return
 
     event.preventDefault()
     onNavigate?.(routeHref)
@@ -26,90 +37,92 @@ function Footer({ onNavigate }) {
 
   return (
     <footer className="footer-shell relative z-10 border-t border-themeBorder bg-themeSurface/75 backdrop-blur-xl">
-      <div className="mx-auto max-w-7xl px-4 py-7 text-right sm:px-6 lg:px-8">
-        <div className="footer-cta soft-panel rounded-xl border border-themeBorder bg-themeBg/80 p-5 shadow-card-theme sm:p-6">
-          <div className="grid gap-4 md:grid-cols-[1fr_auto] md:items-center">
-            <div>
+      <div className="mx-auto max-w-7xl px-4 pt-7 text-right sm:px-6 lg:px-8">
+        <div className="footer-cta soft-panel rounded-lg border border-themeBorder bg-themeBg/80 p-5 shadow-card-theme sm:p-6">
+          <div className="grid gap-5 md:grid-cols-[auto_1fr_auto] md:items-center">
+            <a
+              href={content.ctaHref || '/contact'}
+              onClick={(event) => handleRouteClick(event, content.ctaHref || '/contact')}
+              className="footer-cta-button hero-action order-3 rounded-md bg-themePrimary px-5 py-3 text-center text-theme-button font-bold text-white shadow-card-theme transition hover:bg-themePrimaryHover md:order-1"
+            >
+              {content.ctaButton}
+            </a>
+
+            <div className="order-2 text-center md:text-right">
               <p className="footer-cta-kicker text-theme-body font-bold text-themePrimary">
-                مدرسہ مینجمنٹ کو آج ہی آسان بنائیں
+                {content.ctaKicker}
               </p>
               <h2 className="footer-cta-title mt-2 font-urdu text-theme-title font-bold text-themeText">
-                مکمل ڈیمو دیکھیں اور اپنی ٹیم کے لیے بہترین flow منتخب کریں۔
+                {content.ctaTitle}
               </h2>
             </div>
-            <a
-              href="/contact"
-              onClick={(event) => handleRouteClick(event, '/contact')}
-              className="footer-cta-button hero-action rounded-md bg-themePrimary px-5 py-2.5 text-center text-theme-button font-bold text-white shadow-card-theme transition hover:bg-themePrimaryHover"
-            >
-              ڈیمو درخواست دیں
-            </a>
+
+            <div className="footer-cta-visual order-1 mx-auto hidden w-full max-w-xs md:order-3 md:block" aria-hidden="true">
+              <img src={localAssets.dashboardOne} alt="" className="footer-cta-laptop" />
+              <span className="footer-cta-bubble footer-cta-bubble-1">✓</span>
+              <span className="footer-cta-bubble footer-cta-bubble-2">رپورٹ</span>
+              <span className="footer-cta-bubble footer-cta-bubble-3">فیس</span>
+            </div>
           </div>
         </div>
+      </div>
 
-        <div className="grid gap-7 py-7 md:grid-cols-[1.2fr_0.8fr_0.8fr]">
-          <div>
-            <div className="flex items-center gap-3">
-              <span className="grid size-10 shrink-0 place-items-center rounded-lg bg-themePrimary text-theme-kicker font-black text-white shadow-card-theme">
-                م
-              </span>
-              <div>
-                <p className="footer-brand-name font-urdu text-theme-body font-bold text-themeText">
-                  مدرسہ سافٹ ویئر
-                </p>
-                <p className="text-theme-kicker text-slate-500 dark:text-slate-400">
-                  جدید مدرسہ مینجمنٹ کے لیے مکمل سافٹ ویئر حل۔
-                </p>
+      <div className="footer-main-dark mt-7">
+        <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+          <div className="grid gap-8 md:grid-cols-3">
+            <div className="footer-dark-column text-right">
+              <div className="flex justify-start">
+                <img
+                  src={localAssets.darkLogo}
+                  alt="مدرسہ سافٹ ویئر"
+                  className="footer-dark-logo"
+                />
+              </div>
+             
+              <p className="footer-dark-text mt-3">
+                ہمارا مقصد جدید ٹیکنالوجی کے ذریعے مدارس کے نظام کو آسان، محفوظ اور منظم بنانا ہے۔
+              </p>
+            </div>
+
+            <div className="footer-dark-column text-center">
+              <h3 className="footer-dark-title">فوری لنکس</h3>
+              <div className="mt-3 grid gap-2">
+                {visibleLinks.map((link) => (
+                  <a
+                    key={`${link.label}-${link.href}`}
+                    href={getRouteHref(link.href)}
+                    onClick={(event) => handleRouteClick(event, link.href)}
+                    className="footer-dark-link"
+                  >
+                    {link.label}
+                  </a>
+                ))}
+              </div>
+            </div>
+
+            <div className="footer-dark-column text-left md:text-right">
+              <h3 className="footer-dark-title">رابطہ</h3>
+              <div className="mt-3 grid gap-3">
+                <a href={`mailto:${email}`} className="footer-contact-row" dir="ltr">
+                  <span className="footer-contact-icon">@</span>
+                  {email}
+                </a>
+                <a href={`tel:${phone.replace(/\s+/g, '')}`} className="footer-contact-row" dir="ltr">
+                  <span className="footer-contact-icon">☎</span>
+                  {phone}
+                </a>
+                <span className="footer-contact-row text-start" dir="ltr">
+                  <span className="footer-contact-icon">⌖</span>
+                  {address}
+                </span>
               </div>
             </div>
           </div>
 
-          <div>
-            <p className="mb-3 text-theme-body font-black text-themeText">
-              فوری لنکس
-            </p>
-            <div className="grid gap-2.5">
-              {footerLinks.map((link) => (
-                <a
-                  key={link.label}
-                  href={getRouteHref(link.href)}
-                  onClick={(event) => handleRouteClick(event, link.href)}
-                  className=" text-xl font-bold text-slate-600 transition hover:text-themePrimary dark:text-slate-300"
-                >
-                  {link.label}
-                </a>
-              ))}
-            </div>
+          <div className="footer-dark-bottom mt-7 flex flex-col gap-2 border-t border-white/10 pt-4 text-sm font-bold text-slate-400 sm:flex-row sm:items-center sm:justify-between">
+            <p>{content.copyright}</p>
+            <p>Frontend + Backend ready management platform</p>
           </div>
-
-          <div>
-            <p className=" mb-3 text-theme-body font-black text-themeText">رابطہ</p>
-            <div className=" grid gap-2.5 text-xl font-bold text-slate-600 dark:text-slate-300">
-              <a
-                href="mailto:info@madrasasoftware.com"
-                className=" transition hover:text-themePrimary"
-                dir="ltr"
-              >
-                info@madrasasoftware.com
-              </a>
-              <a
-                href="tel:+923319998780"
-                className="footer-link transition hover:text-themePrimary"
-                dir="ltr"
-              >
-                +92-331-9998780
-              </a>
-              <span dir="ltr">
-                R-5, Row 5, Block D, NCECHS, Gulshan-e-iqbal Block 10A,
-                Rashid Minhas Road, Karachi, Pakistan.
-              </span>
-            </div>
-          </div>
-        </div>
-
-        <div className=" flex flex-col gap-2 border-t border-themeBorder pt-4 text-theme-kicker text-slate-500 dark:text-slate-400 sm:flex-row sm:items-center sm:justify-between">
-          <p>© 2026 مدرسہ سافٹ ویئر۔ تمام حقوق محفوظ ہیں۔</p>
-          <p>Frontend + Backend ready management platform</p>
         </div>
       </div>
     </footer>

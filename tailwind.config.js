@@ -14,12 +14,12 @@ export default {
         'card-theme': 'var(--shadow-card)',
       },
       fontSize: {
-        'theme-title': ['clamp(1.8rem, 1.1rem + 2.2vw, 3.2rem)', { lineHeight: '1.9' }],
-        'theme-kicker': ['1.5rem', { lineHeight: '1.7' }],
-        'theme-body': ['1.75rem', { lineHeight: '2.25rem' }],
-        'theme-nav': ['1.5rem', { lineHeight: '1.6' }],
-        'theme-button': ['1.5rem', { lineHeight: '1.7' }],
-        'theme-detail': ['0.875rem', { lineHeight: '1.75rem' }],
+        'theme-title': ['clamp(1.55rem, 1.1rem + 1.15vw, 2.35rem)', { lineHeight: '1.75' }],
+        'theme-kicker': ['1rem', { lineHeight: '1.65' }],
+        'theme-body': ['1.125rem', { lineHeight: '2rem' }],
+        'theme-nav': ['1rem', { lineHeight: '1.6' }],
+        'theme-button': ['1rem', { lineHeight: '1.65' }],
+        'theme-detail': ['0.8125rem', { lineHeight: '1.6rem' }],
       },
       colors: {
         themeBg: 'var(--color-bg)',
