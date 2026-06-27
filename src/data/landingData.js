@@ -1,8 +1,8 @@
 export const navItems = [
   { label: 'خصوصیات', href: '#features' },
   { label: 'ماڈیولز', href: '#slider' },
-  { label: 'ڈیمو', href: '#contact' },
-  { label: 'رابطہ', href: '#contact' },
+  { label: 'ڈیمو', href: '#demo' },
+  { label: 'رابطہ', href: '/contact' },
 ]
 
 export const previewCards = [
@@ -79,5 +79,5 @@ export const features = [
 export const footerLinks = [
   { label: 'خصوصیات', href: '#features' },
   { label: 'ماڈیولز', href: '#slider' },
-  { label: 'ڈیمو', href: '#contact' },
+  { label: 'ڈیمو', href: '#demo' },
 ]

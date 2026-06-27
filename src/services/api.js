@@ -1,5 +1,5 @@
-const BASE_URL = 'http://localhost:5000/api'
-// const BASE_URL = 'https://api.madrasasoftware.com/api'
+// const BASE_URL = 'http://localhost:5000/api'
+const BASE_URL = 'https://api.madrasasoftware.com/api'
 
 const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL || BASE_URL).replace(/\/+$/, '')
 const ADMIN_TOKEN_KEY = 'madarsa_admin_token'

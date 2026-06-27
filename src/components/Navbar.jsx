@@ -4,7 +4,8 @@ import { localAssets } from '../utils/assetResolver'
 
 const DEMO_BOOKING_URL = 'http://demo.madrasasoftware.com/admin'
 
-const getRouteHref = (href) => {
+const getRouteHref = (href, label) => {
+  if (label === 'ڈیمو' && href === '#contact') return '/#demo'
   if (href === '#contact') return '/contact'
   if (href?.startsWith('#')) return `/${href}`
   return href || '/'
@@ -15,8 +16,8 @@ function Navbar({ theme, onNavigate, navLinks = navItems }) {
   const brandLogo = theme === 'dark' ? localAssets.darkLogo : localAssets.lightLogo
   const visibleLinks = navLinks.length ? navLinks : navItems
 
-  const handleRouteClick = (event, href) => {
-    const routeHref = getRouteHref(href)
+  const handleRouteClick = (event, href, label) => {
+    const routeHref = getRouteHref(href, label)
 
     if (!routeHref.startsWith('/')) return
 
@@ -44,8 +45,8 @@ function Navbar({ theme, onNavigate, navLinks = navItems }) {
           {visibleLinks.map((item, index) => (
             <a
               key={`${item.label}-${item.href}`}
-              href={getRouteHref(item.href)}
-              onClick={(event) => handleRouteClick(event, item.href)}
+              href={getRouteHref(item.href, item.label)}
+              onClick={(event) => handleRouteClick(event, item.href, item.label)}
               className="nav-link text-[1.5rem] font-semibold leading-8 text-slate-600 transition hover:text-themePrimary dark:text-slate-300"
               style={{ animationDelay: `${120 + index * 80}ms` }}
             >
@@ -114,8 +115,8 @@ function Navbar({ theme, onNavigate, navLinks = navItems }) {
               {visibleLinks.map((item, index) => (
                 <a
                   key={`${item.label}-${item.href}`}
-                  href={getRouteHref(item.href)}
-                  onClick={(event) => handleRouteClick(event, item.href)}
+                  href={getRouteHref(item.href, item.label)}
+                  onClick={(event) => handleRouteClick(event, item.href, item.label)}
                   className="drawer-link block rounded-md border border-themeBorder bg-themeBg px-4 py-3 text-theme-button font-bold text-themeText transition hover:border-themePrimary hover:text-themePrimary"
                   style={{ animationDelay: `${140 + index * 70}ms` }}
                 >

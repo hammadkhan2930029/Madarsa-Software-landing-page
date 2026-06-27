@@ -1,7 +1,8 @@
 ﻿import { footerLinks } from '../data/landingData'
 import { localAssets } from '../utils/assetResolver'
 
-const getRouteHref = (href) => {
+const getRouteHref = (href, label) => {
+  if (label === 'ڈیمو' && href === '#contact') return '/#demo'
   if (href === '#contact') return '/contact'
   if (href?.startsWith('#')) return `/${href}`
   return href || '/'
@@ -26,8 +27,8 @@ function Footer({ theme, onNavigate, footer, navLinks = footerLinks, contactItem
   const address = contactItems.find((item) => item.label?.includes('پتہ'))?.value
     || 'R-5, Row 5, Block D, NCECHS, Gulshan-e-Iqbal Block 10A, Rashid Minhas Road, Karachi, Pakistan.'
 
-  const handleRouteClick = (event, href) => {
-    const routeHref = getRouteHref(href)
+  const handleRouteClick = (event, href, label) => {
+    const routeHref = getRouteHref(href, label)
 
     if (!routeHref.startsWith('/')) return
 
@@ -90,8 +91,8 @@ function Footer({ theme, onNavigate, footer, navLinks = footerLinks, contactItem
                 {visibleLinks.map((link) => (
                   <a
                     key={`${link.label}-${link.href}`}
-                    href={getRouteHref(link.href)}
-                    onClick={(event) => handleRouteClick(event, link.href)}
+                    href={getRouteHref(link.href, link.label)}
+                    onClick={(event) => handleRouteClick(event, link.href, link.label)}
                     className="footer-dark-link"
                   >
                     {link.label}

@@ -278,7 +278,7 @@
   opacity: 1;
 }
 
-.site-shell .reveal-on-scroll.is-visible:not(:hover) {
+.site-shell .reveal-on-scroll.is-visible {
   transform: translateY(0) scale(1);
 }
 
@@ -803,6 +803,8 @@
 .footer-shell a:hover,
 .footer-shell button:hover,
 .footer-shell .hero-action:hover,
+.footer-shell .soft-panel:hover,
+.footer-shell .reveal-on-scroll.is-visible:hover,
 .footer-shell .footer-cta-button:hover {
   transform: none;
 }

@@ -78,7 +78,7 @@ function DemoRequestSection({ demoSection, demoBenefits = [] }) {
   }
 
   return (
-    <section id="contact" className="relative z-10 py-14 sm:py-18">
+    <section id="demo" className="relative z-10 py-14 sm:py-18">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="demo-request-shell soft-panel grid gap-7 rounded-[40px] p-5 shadow-theme sm:p-7 lg:grid-cols-[0.92fr_1.08fr] lg:items-center lg:p-8 lg:[direction:rtl]">
           <form

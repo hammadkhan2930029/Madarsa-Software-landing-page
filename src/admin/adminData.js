@@ -20,7 +20,7 @@ export const heroContent = {
 export const navLinks = [
   { label: 'خصوصیات', href: '#features', placement: 'ہیڈر / فوٹر', status: 'active' },
   { label: 'ماڈیولز', href: '#slider', placement: 'ہیڈر / فوٹر', status: 'active' },
-  { label: 'ڈیمو', href: '#contact', placement: 'ہیڈر / فوٹر', status: 'active' },
+  { label: 'ڈیمو', href: '#demo', placement: 'ہیڈر / فوٹر', status: 'active' },
   { label: 'رابطہ', href: '/contact', placement: 'ہیڈر', status: 'active' },
 ]
 
