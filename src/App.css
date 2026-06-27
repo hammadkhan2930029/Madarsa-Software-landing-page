@@ -53,6 +53,8 @@
 }
 
 .splash-card {
+  position: relative;
+  overflow: hidden;
   width: min(92vw, 34rem);
   padding: 2rem;
   border: 1px solid var(--color-border);
@@ -61,6 +63,57 @@
   box-shadow: var(--shadow-card);
   backdrop-filter: blur(18px);
   animation: splashCardIn 640ms ease both;
+}
+
+.splash-card::before {
+  content: '';
+  position: absolute;
+  inset-block: -30%;
+  inset-inline-start: -55%;
+  width: 38%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.34), transparent);
+  transform: skewX(-18deg);
+  animation: splashSheen 1.45s ease 260ms both;
+}
+
+.splash-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+.splash-grid {
+  opacity: 0.22;
+  background-image:
+    linear-gradient(rgba(0, 184, 137, 0.16) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 184, 137, 0.16) 1px, transparent 1px);
+  background-size: 4.5rem 4.5rem;
+  mask-image: radial-gradient(circle at 50% 50%, #000, transparent 68%);
+  animation: splashGridDrift 8s linear infinite;
+}
+
+.splash-logo-wrap {
+  position: relative;
+  display: grid;
+  min-width: min(18rem, 72vw);
+  min-height: 7rem;
+  place-items: center;
+}
+
+.splash-logo-wrap > span {
+  position: absolute;
+  inset: 50% auto auto 50%;
+  width: 8.75rem;
+  height: 8.75rem;
+  border: 1px solid rgba(0, 184, 137, 0.28);
+  border-radius: 999px;
+  transform: translate(-50%, -50%) scale(0.78);
+  animation: splashRing 1.8s ease-out infinite;
+}
+
+.splash-logo-wrap > span:nth-child(2) {
+  width: 10.5rem;
+  height: 10.5rem;
+  animation-delay: 520ms;
 }
 
 .splash-logo {
@@ -87,6 +140,24 @@
 
 .splash-loader span:nth-child(3) {
   animation-delay: 260ms;
+}
+
+.splash-progress {
+  width: min(13rem, 58vw);
+  height: 0.28rem;
+  overflow: hidden;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--color-primary) 14%, transparent);
+}
+
+.splash-progress span {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, transparent, var(--color-primary), transparent);
+  transform: translateX(70%);
+  animation: splashProgress 1.15s ease-in-out infinite;
 }
 
 .navbar-enter {
@@ -188,6 +259,27 @@
 
 .page-reveal {
   animation: heroReveal 720ms ease both;
+}
+
+.site-shell .reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(26px) scale(0.985);
+  animation: none !important;
+  transition:
+    opacity 640ms ease,
+    transform 640ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    border-color 260ms ease,
+    box-shadow 260ms ease;
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+
+.site-shell .reveal-on-scroll.is-visible {
+  opacity: 1;
+}
+
+.site-shell .reveal-on-scroll.is-visible:not(:hover) {
+  transform: translateY(0) scale(1);
 }
 
 .soft-panel {
@@ -642,12 +734,11 @@
 
 .footer-dark-link {
   justify-self: center;
-  transition: color 180ms ease, transform 180ms ease;
+  transition: color 180ms ease;
 }
 
 .footer-dark-link:hover {
   color: var(--color-primary);
-  transform: translateY(-1px);
 }
 
 .footer-contact-icon {
@@ -706,7 +797,20 @@
 }
 
 .footer-link:hover::after {
-  transform: scaleX(1);
+  transform: scaleX(0);
+}
+
+.footer-shell a:hover,
+.footer-shell button:hover,
+.footer-shell .hero-action:hover,
+.footer-shell .footer-cta-button:hover {
+  transform: none;
+}
+
+.footer-shell .hero-action::after,
+.footer-shell .footer-cta-button::after,
+.footer-link::after {
+  display: none;
 }
 
 .site-scan::before {
@@ -1008,6 +1112,58 @@
   }
 }
 
+@keyframes splashRing {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.72);
+  }
+
+  28% {
+    opacity: 0.72;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1.16);
+  }
+}
+
+@keyframes splashSheen {
+  from {
+    inset-inline-start: -55%;
+    opacity: 0;
+  }
+
+  38% {
+    opacity: 1;
+  }
+
+  to {
+    inset-inline-start: 118%;
+    opacity: 0;
+  }
+}
+
+@keyframes splashGridDrift {
+  from {
+    background-position: 0 0, 0 0;
+  }
+
+  to {
+    background-position: 4.5rem 4.5rem, 4.5rem 4.5rem;
+  }
+}
+
+@keyframes splashProgress {
+  from {
+    transform: translateX(70%);
+  }
+
+  to {
+    transform: translateX(-70%);
+  }
+}
+
 @keyframes splashDot {
   0%,
   100% {
@@ -1242,9 +1398,13 @@
 @media (prefers-reduced-motion: reduce) {
   .splash-screen,
   .splash-ambient,
+  .splash-grid,
   .splash-card,
+  .splash-card::before,
+  .splash-logo-wrap > span,
   .splash-logo,
   .splash-loader span,
+  .splash-progress span,
   .hero-ambient,
   .site-ambient,
   .site-glow,
@@ -1259,6 +1419,7 @@
   .drawer-backdrop,
   .drawer-panel,
   .drawer-link,
+  .reveal-on-scroll,
   .hero-reveal,
   .hero-stat-card,
   .hero-update-row,
@@ -1272,6 +1433,7 @@
   }
 
   .hero-reveal,
+  .reveal-on-scroll,
   .hero-stat-card,
   .hero-update-row,
   .hero-dashboard,
@@ -1288,8 +1450,13 @@
   }
 
   .hero-copy h1 {
-    font-size: 2.2rem;
-    line-height: 1.75;
+    max-width: 100%;
+  }
+
+  .hero-copy,
+  .slider-copy,
+  #features .page-reveal {
+    text-wrap: pretty;
   }
 
   .hero-slider-viewport {
@@ -1315,5 +1482,138 @@
   .request-card,
   .contact-info-card {
     border-radius: 0.75rem;
+  }
+
+  .footer-shell {
+    text-align: center;
+  }
+
+  .footer-main-dark {
+    margin-top: 1.25rem;
+  }
+
+  .footer-main-dark > div {
+    padding-block: 2rem;
+  }
+
+  .footer-dark-column {
+    min-height: auto;
+    text-align: center;
+  }
+
+  .footer-dark-logo {
+    width: min(12rem, 72vw);
+    margin-inline: auto;
+  }
+
+  .footer-dark-text {
+    max-width: 22rem;
+    margin-inline: auto;
+    font-size: 0.95rem;
+    line-height: 2;
+  }
+
+  .footer-dark-title {
+    font-size: 1.05rem;
+  }
+
+  .footer-dark-link {
+    justify-self: center;
+    padding-block: 0.15rem;
+    font-size: 0.95rem;
+  }
+
+  .footer-contact-row {
+    display: grid;
+    grid-template-columns: 2rem minmax(0, 1fr);
+    align-items: start;
+    width: 100%;
+    max-width: 22rem;
+    margin-inline: auto;
+    gap: 0.65rem;
+    text-align: left;
+    font-size: 0.86rem;
+    line-height: 1.8;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  .footer-contact-icon {
+    width: 1.65rem;
+    height: 1.65rem;
+    justify-self: center;
+    font-size: 0.78rem;
+  }
+
+  .footer-dark-bottom {
+    align-items: center;
+    text-align: center;
+    font-size: 0.78rem;
+    line-height: 1.8;
+  }
+
+  .site-glow,
+  .site-scan::before,
+  .brand-mark > span:first-child,
+  .feature-dot,
+  .hero-dashboard,
+  .hero-dashboard::before,
+  .hero-carousel-image,
+  .soft-panel,
+  .soft-panel::before,
+  .page-reveal,
+  .hero-reveal,
+  .hero-stat-card,
+  .hero-update-row,
+  .slider-panel,
+  .slider-copy,
+  .slider-card,
+  .feature-card,
+  .demo-request-shell,
+  .request-card,
+  .demo-visual-card,
+  .demo-copy-panel,
+  .footer-cta,
+  .footer-main-dark,
+  .contact-info-card {
+    animation: none !important;
+  }
+
+  .page-reveal,
+  .hero-reveal,
+  .hero-stat-card,
+  .hero-update-row,
+  .hero-dashboard,
+  .soft-panel,
+  .site-shell .reveal-on-scroll,
+  .site-shell .reveal-on-scroll.is-visible {
+    opacity: 1;
+    transform: none !important;
+  }
+
+  .site-shell .reveal-on-scroll {
+    transition: opacity 220ms ease, border-color 180ms ease, box-shadow 180ms ease;
+    transition-delay: 0ms;
+    will-change: auto;
+  }
+
+  .slider-panel:hover .slider-image,
+  .feature-card:hover,
+  .request-card:hover,
+  .contact-info-card:hover,
+  .hero-stat-card:hover,
+  .hero-update-row:hover,
+  .hero-metric:hover,
+  .slider-card:hover,
+  .slider-tab:hover,
+  .site-shell a:hover,
+  .site-shell button:hover {
+    transform: none !important;
+  }
+
+  .hero-dashboard::before,
+  .soft-panel::before,
+  .site-scan::before {
+    display: none;
   }
 }

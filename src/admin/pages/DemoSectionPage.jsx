@@ -4,8 +4,15 @@ import Badge from '../components/Badge'
 import PageHeader from '../components/PageHeader'
 import { editorFields, openEditorConfig } from '../constants/editorFields'
 
-function DemoSectionPage({ openEditor, demoSection: apiDemoSection }) {
+const fallbackBenefits = [
+  { label: 'مفت ڈیمو', icon: 'download', sortOrder: 1, status: 'active' },
+  { label: 'ہر وقت بیک اپ', icon: 'backup', sortOrder: 2, status: 'active' },
+  { label: 'آسان سپورٹ', icon: 'support', sortOrder: 3, status: 'active' },
+]
+
+function DemoSectionPage({ openEditor, demoSection: apiDemoSection, demoBenefits, onDelete, onRestore }) {
   const content = apiDemoSection || demoSection
+  const benefits = demoBenefits?.length ? demoBenefits : fallbackBenefits
 
   return (
     <>
@@ -14,7 +21,7 @@ function DemoSectionPage({ openEditor, demoSection: apiDemoSection }) {
         description="ڈیمو سیکشن کا عنوان، تفصیل، بٹن، کامیابی پیغام اور فارم فیلڈز منظم کرنے کی UI۔"
         onAction={() => openEditorConfig(openEditor, 'ڈیمو سیکشن شامل کریں', editorFields.demo)}
       />
-      <div className="grid gap-5 xl:grid-cols-2">
+      <div className="grid gap-5">
         <AdminTable
           columns={[
             { key: 'label', label: 'فیلڈ' },
@@ -37,6 +44,26 @@ function DemoSectionPage({ openEditor, demoSection: apiDemoSection }) {
             { key: 'required', label: 'لازمی', render: (row) => <Badge value={row.required} tone="info" /> },
           ]}
           rows={formFields}
+        />
+      </div>
+      <div className="mt-5">
+        <PageHeader
+          title="ڈیمو فوائد"
+          description="فارم کے نیچے دکھنے والے مختصر فوائد جیسے مفت ڈیمو، بیک اپ اور سپورٹ۔"
+          actionLabel="فائدہ شامل کریں"
+          onAction={() => openEditorConfig(openEditor, 'ڈیمو فائدہ شامل کریں', editorFields.demoBenefits)}
+        />
+        <AdminTable
+          columns={[
+            { key: 'sortOrder', label: 'ترتیب' },
+            { key: 'label', label: 'لیبل' },
+            { key: 'icon', label: 'آئیکن' },
+            { key: 'status', label: 'حالت', render: (row) => <Badge value={row.status} /> },
+          ]}
+          rows={benefits}
+          onEdit={(row) => openEditorConfig(openEditor, 'ڈیمو فائدہ کی ترمیم', editorFields.demoBenefits, 'edit', row)}
+          onDelete={onDelete}
+          onRestore={onRestore}
         />
       </div>
     </>

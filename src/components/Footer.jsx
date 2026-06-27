@@ -70,8 +70,8 @@ function Footer({ theme, onNavigate, footer, navLinks = footerLinks, contactItem
       <div className="footer-main-dark mt-7">
         <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
           <div className="grid gap-8 md:grid-cols-3">
-            <div className="footer-dark-column text-right">
-              <div className="flex justify-start">
+            <div className="footer-dark-column text-center md:text-right">
+              <div className="flex justify-center md:justify-start">
                 <img
                   src={localAssets.darkLogo}
                   alt="مدرسہ سافٹ ویئر"
@@ -100,7 +100,7 @@ function Footer({ theme, onNavigate, footer, navLinks = footerLinks, contactItem
               </div>
             </div>
 
-            <div className="footer-dark-column text-left md:text-right">
+            <div className="footer-dark-column text-center md:text-right">
               <h3 className="footer-dark-title">رابطہ</h3>
               <div className="mt-3 grid gap-3">
                 <a href={`mailto:${email}`} className="footer-contact-row" dir="ltr">

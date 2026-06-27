@@ -20,7 +20,7 @@ const fallbackContactCards = [
   },
 ]
 
-function ContactPage({ contactItems = [], demoSection }) {
+function ContactPage({ contactItems = [], demoSection, demoBenefits = [] }) {
   const cards = contactItems.length ? contactItems.filter((item) => !item.label?.includes('پتہ')) : fallbackContactCards
   const address = contactItems.find((item) => item.label?.includes('پتہ'))?.value
     || 'R-5, Row 5, Block D, NCECHS, Gulshan-e-iqbal Block 10A, Rashid Minhas Road, Karachi, Pakistan.'
@@ -66,7 +66,7 @@ function ContactPage({ contactItems = [], demoSection }) {
         </div>
       </section>
 
-      <DemoRequestSection demoSection={demoSection} />
+      <DemoRequestSection demoSection={demoSection} demoBenefits={demoBenefits} />
     </>
   )
 }

@@ -4,7 +4,7 @@ import Badge from '../components/Badge'
 import PageHeader from '../components/PageHeader'
 import { editorFields, openEditorConfig } from '../constants/editorFields'
 
-function StatsPage({ openEditor, stats, onDelete }) {
+function StatsPage({ openEditor, stats, onDelete, onRestore }) {
   const rows = stats?.length
     ? stats.map((item) => ({ ...item, order: item.sortOrder }))
     : statCards
@@ -22,6 +22,7 @@ function StatsPage({ openEditor, stats, onDelete }) {
         rows={rows}
         onEdit={(row) => openEditorConfig(openEditor, 'اعداد کارڈ کی ترمیم', editorFields.stats, 'edit', row)}
         onDelete={onDelete}
+        onRestore={onRestore}
       />
     </>
   )

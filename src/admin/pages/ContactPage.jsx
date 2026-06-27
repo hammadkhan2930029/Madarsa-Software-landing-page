@@ -4,7 +4,7 @@ import Badge from '../components/Badge'
 import PageHeader from '../components/PageHeader'
 import { editorFields, openEditorConfig } from '../constants/editorFields'
 
-function ContactPage({ openEditor, contactItems, onDelete }) {
+function ContactPage({ openEditor, contactItems, onDelete, onRestore }) {
   const rows = contactItems?.length ? contactItems : contactContent
 
   return (
@@ -20,6 +20,7 @@ function ContactPage({ openEditor, contactItems, onDelete }) {
         rows={rows}
         onEdit={(row) => openEditorConfig(openEditor, 'رابطہ آئٹم کی ترمیم', editorFields.contact, 'edit', row)}
         onDelete={onDelete}
+        onRestore={onRestore}
       />
     </>
   )

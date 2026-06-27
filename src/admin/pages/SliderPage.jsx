@@ -5,7 +5,7 @@ import FilterBar from '../components/FilterBar'
 import PageHeader from '../components/PageHeader'
 import { editorFields, openEditorConfig } from '../constants/editorFields'
 
-function SliderPage({ openEditor, sliderModules: apiSliderModules, onDelete }) {
+function SliderPage({ openEditor, sliderModules: apiSliderModules, onDelete, onRestore }) {
   const rows = apiSliderModules?.length
     ? apiSliderModules.map((item) => ({ ...item, image: item.imageUrl }))
     : sliderModules
@@ -26,6 +26,7 @@ function SliderPage({ openEditor, sliderModules: apiSliderModules, onDelete }) {
         rows={rows}
         onEdit={(row) => openEditorConfig(openEditor, 'سلائیڈر ماڈیول کی ترمیم', editorFields.slider, 'edit', row)}
         onDelete={onDelete}
+        onRestore={onRestore}
       />
     </>
   )

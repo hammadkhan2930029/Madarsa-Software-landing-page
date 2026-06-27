@@ -5,7 +5,7 @@ import FilterBar from '../components/FilterBar'
 import PageHeader from '../components/PageHeader'
 import { editorFields, openEditorConfig } from '../constants/editorFields'
 
-function MediaPage({ openEditor, media, onDelete }) {
+function MediaPage({ openEditor, media, onDelete, onRestore }) {
   const rows = media?.length
     ? media.map((item) => ({ ...item, file: item.fileUrl, usedIn: item.usedIn }))
     : mediaAssets
@@ -25,6 +25,7 @@ function MediaPage({ openEditor, media, onDelete }) {
         rows={rows}
         onEdit={(row) => openEditorConfig(openEditor, 'میڈیا اثاثہ تبدیل کریں', editorFields.media, 'edit', row)}
         onDelete={onDelete}
+        onRestore={onRestore}
       />
     </>
   )

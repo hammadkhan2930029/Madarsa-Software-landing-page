@@ -1,14 +1,25 @@
 .admin-shell {
-  min-height: 100svh;
+  height: 100svh;
+  overflow: hidden;
   background:
     linear-gradient(180deg, color-mix(in srgb, var(--color-surface) 36%, transparent), transparent 32rem),
     var(--color-bg);
 }
 
 .admin-sidebar {
+  height: 100svh;
   background: linear-gradient(180deg, #004d61, #002a33) !important;
   border-radius: 0;
   box-shadow: 10px 0 30px rgba(0, 0, 0, 0.1);
+}
+
+.admin-topbar-static {
+  position: relative;
+}
+
+.admin-content-scroll {
+  scrollbar-width: thin;
+  overscroll-behavior: contain;
 }
 
 .admin-topbar {

@@ -122,7 +122,7 @@ function HeroSection({ hero, heroImages = [], stats = previewCards }) {
           <p className="hero-reveal hero-kicker inline-flex max-w-full items-center rounded-md border border-themePrimary/20 bg-themeSurface/86 px-4 py-2 font-bold text-themePrimary shadow-card-theme">
             {content.kicker}
           </p>
-          <h1 className="hero-reveal hero-reveal-delay-1 mt-5 font-urdu text-[3.15rem] font-bold leading-[1.75] text-themeText">
+          <h1 className="hero-reveal hero-reveal-delay-1 mt-5 font-urdu text-[2.15rem] font-bold leading-[1.95] text-themeText sm:text-[3.15rem] sm:leading-[1.75]">
             {content.title}
           </h1>
           <p className="hero-reveal hero-reveal-delay-2 mt-4 max-w-2xl text-[1.28rem] font-bold leading-9 text-slate-600 dark:text-slate-300">

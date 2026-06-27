@@ -38,7 +38,17 @@ function MenuIcon() {
   )
 }
 
-function AdminLayout({ children, path, theme }) {
+function LogoutIcon() {
+  return (
+    <svg className="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" aria-hidden="true">
+      <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+      <path d="m16 17 5-5-5-5" />
+      <path d="M21 12H9" />
+    </svg>
+  )
+}
+
+function AdminLayout({ children, path, theme, onLogout }) {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false)
 
   const handleNavigate = useCallback((nextPath) => {
@@ -47,13 +57,13 @@ function AdminLayout({ children, path, theme }) {
   }, [])
 
   return (
-    <div className="admin-shell min-h-screen bg-themeBg text-themeText" data-theme={theme} dir="rtl">
-      <div className="grid min-h-screen lg:grid-cols-[15.5rem_1fr]">
-        <div className="hidden lg:block">
+    <div className="admin-shell h-screen overflow-hidden bg-themeBg text-themeText" data-theme={theme} dir="rtl">
+      <div className="grid h-full lg:grid-cols-[15.5rem_1fr]">
+        <div className="hidden h-full lg:block">
           <Sidebar activePath={path} onNavigate={handleNavigate} />
         </div>
-        <div className="min-w-0">
-          <header className="sticky top-0 z-30 border border-themeBorder bg-themeSurface/92 backdrop-blur-xl">
+        <div className="flex min-h-0 min-w-0 flex-col">
+          <header className="admin-topbar-static z-30 shrink-0 border border-themeBorder bg-themeSurface/92 backdrop-blur-xl">
             <div className="admin-topbar-inner">
               <div className="admin-user-block">
                 <button
@@ -92,11 +102,14 @@ function AdminLayout({ children, path, theme }) {
                   <BellIcon />
                   <span />
                 </button>
+                <button type="button" onClick={onLogout} className="admin-icon-button" aria-label="لاگ آؤٹ" title="لاگ آؤٹ">
+                  <LogoutIcon />
+                </button>
              
               </div>
             </div>
           </header>
-          <main className="px-4 py-5 lg:px-6">{children}</main>
+          <main className="admin-content-scroll min-h-0 flex-1 overflow-y-auto px-4 py-5 lg:px-6">{children}</main>
         </div>
       </div>
       {isDrawerOpen && (

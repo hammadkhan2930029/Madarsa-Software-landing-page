@@ -2,6 +2,8 @@ import { useState } from 'react'
 import { navItems } from '../data/landingData'
 import { localAssets } from '../utils/assetResolver'
 
+const DEMO_BOOKING_URL = 'http://demo.madrasasoftware.com/admin'
+
 const getRouteHref = (href) => {
   if (href === '#contact') return '/contact'
   if (href?.startsWith('#')) return `/${href}`
@@ -25,11 +27,11 @@ function Navbar({ theme, onNavigate, navLinks = navItems }) {
 
   return (
     <nav className="fixed inset-x-0 top-0 z-50 border-b border-themeBorder bg-white/90 backdrop-blur-xl dark:bg-slate-950/86">
-      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between gap-3 px-4 pl-16 sm:px-6 sm:pl-24 lg:px-8">
+      <div className="mx-auto flex h-20 max-w-7xl items-center  justify-between gap-3 px-4 pl-5 sm:px-6 sm:pl-24 lg:px-8">
         <a
           href="/"
           onClick={(event) => handleRouteClick(event, '/')}
-          className="brand-mark flex min-w-0 items-center gap-2 text-right"
+          className="brand-mark order-first flex min-w-0 items-center gap-2 text-right md:order-none"
         >
           <img
             src={brandLogo}
@@ -61,8 +63,7 @@ function Navbar({ theme, onNavigate, navLinks = navItems }) {
             لاگ اِن
           </a>
           <a
-            href="/contact"
-            onClick={(event) => handleRouteClick(event, '/contact')}
+            href={DEMO_BOOKING_URL}
             className="rounded-md bg-themePrimary px-5 py-2.5 text-[1.08rem] font-bold leading-7 text-white shadow-card-theme transition hover:bg-themePrimaryHover"
           >
             ڈیمو بک کریں
@@ -124,8 +125,8 @@ function Navbar({ theme, onNavigate, navLinks = navItems }) {
             </div>
 
             <a
-              href="/contact"
-              onClick={(event) => handleRouteClick(event, '/contact')}
+              href={DEMO_BOOKING_URL}
+              onClick={() => setIsMenuOpen(false)}
               className="mt-5 block rounded-md bg-themePrimary px-4 py-3 text-center text-theme-button font-bold text-white shadow-card-theme transition hover:bg-themePrimaryHover"
             >
               ڈیمو بک کریں

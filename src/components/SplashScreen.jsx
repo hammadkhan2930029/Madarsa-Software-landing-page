@@ -10,13 +10,18 @@ function SplashScreen({ theme }) {
       role="status"
       aria-label="مدرسہ سافٹ ویئر لوڈ ہو رہا ہے"
     >
-      <div className="splash-ambient pointer-events-none absolute inset-0" />
-      <div className="splash-card relative z-10 flex flex-col items-center text-center">
+      {/* <div className="splash-ambient pointer-events-none absolute inset-0" />
+      <div className="splash-grid pointer-events-none absolute inset-0" /> */}
+      <div className=" relative z-10 flex flex-col items-center text-center">
+        <div >
+          <span aria-hidden="true" />
+          <span aria-hidden="true" />
         <img
           src={splashLogo}
           alt="مدرسہ سافٹ ویئر"
-          className="splash-logo h-24 w-auto max-w-[18rem] object-contain"
+          className=" h-24 w-auto max-w-[18rem] object-contain"
         />
+        </div>
         <h1 className="mt-5 font-urdu text-theme-title font-bold text-themeText">
           مدرسہ سافٹ ویئر
         </h1>
@@ -26,6 +31,9 @@ function SplashScreen({ theme }) {
         <div className="splash-loader mt-7" aria-hidden="true">
           <span />
           <span />
+          <span />
+        </div>
+        <div className="splash-progress mt-5" aria-hidden="true">
           <span />
         </div>
       </div>

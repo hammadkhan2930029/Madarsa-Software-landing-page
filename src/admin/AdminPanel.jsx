@@ -13,7 +13,9 @@ const initialAdminContent = {
   stats: null,
   sliderModules: null,
   features: null,
+  featureSection: null,
   demoSection: null,
+  demoBenefits: null,
   footer: null,
   contactItems: null,
   media: null,
@@ -41,8 +43,14 @@ function AdminPanel({ theme, onThemeToggle, location }) {
     await api.remove(resource, row.id)
     await loadAdminContent()
   }
+  const restoreRecord = async (resource, row) => {
+    if (!resource || !row?.id) return
 
-  const page = useMemo(() => getAdminPage(path, openEditor, adminContent, { deleteRecord }), [path, adminContent])
+    await api.update(resource, row.id, { status: 'active' })
+    await loadAdminContent()
+  }
+
+  const page = useMemo(() => getAdminPage(path, openEditor, adminContent, { deleteRecord, restoreRecord }), [path, adminContent])
 
   const loadAdminContent = async () => {
     const [
@@ -51,7 +59,9 @@ function AdminPanel({ theme, onThemeToggle, location }) {
       stats,
       sliderModules,
       features,
+      featureSection,
       demoSection,
+      demoBenefits,
       footer,
       contactItems,
       media,
@@ -62,7 +72,9 @@ function AdminPanel({ theme, onThemeToggle, location }) {
       api.list('stats'),
       api.list('slider-modules'),
       api.list('features'),
+      api.list('feature-section'),
       api.list('demo-section'),
+      api.list('demo-benefits'),
       api.list('footer'),
       api.list('contact-items'),
       api.list('media'),
@@ -75,7 +87,9 @@ function AdminPanel({ theme, onThemeToggle, location }) {
       stats,
       sliderModules,
       features,
+      featureSection,
       demoSection,
+      demoBenefits,
       footer,
       contactItems,
       media,
@@ -118,21 +132,40 @@ function AdminPanel({ theme, onThemeToggle, location }) {
     navigateTo('/admin/hero')
   }
 
-  const uploadEditorFile = async (config, payload, files) => {
-    const file = files.file || files.imageUrl
-    if (!file) return payload
+  const handleLogout = () => {
+    api.clearAdminToken()
+    setIsLoggedIn(false)
+    setAuthStatus('guest')
+    setAdminContent(initialAdminContent)
+    setEditorConfig(null)
+    navigateTo('/admin/login')
+  }
 
-    const formData = new FormData()
-    formData.append('file', file)
-    formData.append('name', payload.name || payload.altText || file.name)
-    formData.append('usedIn', payload.usedIn || config.resource || '')
-    formData.append('altText', payload.altText || payload.name || file.name)
-    formData.append('type', payload.type || 'image')
-    formData.append('status', payload.status || 'active')
+  const uploadEditorFiles = async (config, payload, files) => {
+    const entries = Object.entries(files || {})
+    if (!entries.length) return payload
 
-    const uploaded = await api.uploadMedia(formData)
-    if (config.media) return uploaded
-    return { ...payload, imageUrl: uploaded.fileUrl }
+    let nextPayload = { ...payload }
+    let uploadedMedia = null
+
+    for (const [fieldName, file] of entries) {
+      const formData = new FormData()
+      formData.append('file', file)
+      formData.append('name', payload.name || payload.altText || file.name)
+      formData.append('usedIn', payload.usedIn || config.resource || fieldName)
+      formData.append('altText', payload.altText || payload.name || file.name)
+      formData.append('type', payload.type || 'image')
+      formData.append('status', payload.status || 'active')
+
+      const uploaded = await api.uploadMedia(formData)
+      if (config.media) {
+        uploadedMedia = uploaded
+      } else {
+        nextPayload = { ...nextPayload, [fieldName]: uploaded.fileUrl }
+      }
+    }
+
+    return config.media ? uploadedMedia || payload : nextPayload
   }
 
   const handleEditorSubmit = async (config, payload, files) => {
@@ -145,7 +178,7 @@ function AdminPanel({ theme, onThemeToggle, location }) {
     setEditorError('')
 
     try {
-      const finalPayload = await uploadEditorFile(config, payload, files)
+      const finalPayload = await uploadEditorFiles(config, payload, files)
 
       if (config.media) {
         if (!files.file) throw new Error('میڈیا محفوظ کرنے کے لئے فائل منتخب کریں')
@@ -203,7 +236,7 @@ function AdminPanel({ theme, onThemeToggle, location }) {
   }
 
   return (
-    <AdminLayout path={path === '/admin' ? '/admin/hero' : path} theme={theme} onThemeToggle={onThemeToggle}>
+    <AdminLayout path={path === '/admin' ? '/admin/hero' : path} theme={theme} onThemeToggle={onThemeToggle} onLogout={handleLogout}>
       {page}
       <EditorModal
         config={editorConfig}

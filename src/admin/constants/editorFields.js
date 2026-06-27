@@ -19,6 +19,16 @@ export const editorFields = {
     { label: 'تصویر کی فائل', type: 'file' },
     { label: 'ترتیب' },
   ],
+  featureSection: [
+    { label: 'بالائی متن', value: 'اہم خصوصیات' },
+    { label: 'مرکزی عنوان', value: 'مدرسہ کے ہر شعبے کے لیے مکمل حل۔', type: 'textarea' },
+    {
+      label: 'تفصیل',
+      value: 'یہ سافٹ ویئر روزمرہ کے انتظامی کاموں کو کم وقت میں مکمل کرنے کے لیے بنایا گیا ہے، تاکہ ٹیم ریکارڈ، رپورٹس اور فالو اپ آسانی سے manage کر سکے۔',
+      type: 'textarea',
+    },
+    { label: 'کارڈ لنک متن', value: 'مزید جانیں' },
+  ],
   features: [{ label: 'عنوان' }, { label: 'تفصیل', type: 'textarea' }, { label: 'ترتیب' }, { label: 'حالت' }],
   demo: [
     { label: 'بالائی متن', value: demoSection.kicker },
@@ -26,6 +36,12 @@ export const editorFields = {
     { label: 'تفصیل', value: demoSection.description, type: 'textarea' },
     { label: 'بٹن کا متن', value: demoSection.submitLabel },
     { label: 'کامیابی کا پیغام', value: demoSection.successMessage, type: 'textarea' },
+  ],
+  demoBenefits: [
+    { label: 'لیبل' },
+    { label: 'آئیکن', placeholder: 'download / backup / support' },
+    { label: 'ترتیب' },
+    { label: 'حالت' },
   ],
   footer: [
     { label: 'CTA بالائی متن', value: footerContent.ctaKicker },
@@ -39,9 +55,9 @@ export const editorFields = {
   settingsSeo: [
     { label: 'براؤزر عنوان', value: 'مدرسہ سافٹ ویئر' },
     { label: 'میٹا تفصیل', type: 'textarea' },
-    { label: 'فیویکون فائل' },
-    { label: 'لائٹ لوگو' },
-    { label: 'ڈارک لوگو' },
+    { label: 'فیویکون فائل', type: 'file', accept: 'image/*,.ico,.svg' },
+    { label: 'لائٹ لوگو', type: 'file', accept: 'image/*,.svg' },
+    { label: 'ڈارک لوگو', type: 'file', accept: 'image/*,.svg' },
   ],
 }
 
@@ -76,8 +92,14 @@ function getFieldKeys(fields) {
   if (fields === editorFields.features) {
     return [['title'], ['description'], ['sortOrder', 'order', 'value'], ['status']]
   }
+  if (fields === editorFields.featureSection) {
+    return [['kicker'], ['title'], ['description'], ['cardLinkLabel']]
+  }
   if (fields === editorFields.demo) {
     return [['kicker'], ['title'], ['description'], ['submitLabel'], ['successMessage']]
+  }
+  if (fields === editorFields.demoBenefits) {
+    return [['label'], ['icon'], ['sortOrder', 'order'], ['status']]
   }
   if (fields === editorFields.footer) {
     return [['ctaKicker'], ['ctaTitle'], ['ctaButton'], ['description'], ['copyright']]
@@ -110,8 +132,14 @@ function getFieldNames(fields) {
   if (fields === editorFields.features) {
     return ['title', 'description', 'sortOrder', 'status']
   }
+  if (fields === editorFields.featureSection) {
+    return ['kicker', 'title', 'description', 'cardLinkLabel']
+  }
   if (fields === editorFields.demo) {
     return ['kicker', 'title', 'description', 'submitLabel', 'successMessage']
+  }
+  if (fields === editorFields.demoBenefits) {
+    return ['label', 'icon', 'sortOrder', 'status']
   }
   if (fields === editorFields.footer) {
     return ['ctaKicker', 'ctaTitle', 'ctaButton', 'description', 'copyright']
@@ -134,7 +162,9 @@ function getEditorMeta(fields) {
   if (fields === editorFields.stats) return { resource: 'stats' }
   if (fields === editorFields.slider) return { resource: 'slider-modules' }
   if (fields === editorFields.features) return { resource: 'features' }
+  if (fields === editorFields.featureSection) return { resource: 'feature-section', singleton: true }
   if (fields === editorFields.demo) return { resource: 'demo-section', singleton: true }
+  if (fields === editorFields.demoBenefits) return { resource: 'demo-benefits' }
   if (fields === editorFields.footer) return { resource: 'footer', singleton: true }
   if (fields === editorFields.contact) return { resource: 'contact-items' }
   if (fields === editorFields.media) return { resource: 'media', media: true }

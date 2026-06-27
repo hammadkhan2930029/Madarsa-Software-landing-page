@@ -17,46 +17,44 @@ const fallbackDemoSection = {
   successMessage: 'آپ کی درخواست محفوظ ہو گئی ہے۔ ہماری ٹیم جلد رابطہ کرے گی۔',
 }
 
-const benefits = [
-  {
-    label: 'مفت ڈیمو',
-    icon: (
+const benefitIcons = {
+  download: (
       <>
         <path d="M12 3v12" />
         <path d="m8 11 4 4 4-4" />
         <path d="M4 21h16" />
       </>
-    ),
-  },
-  {
-    label: 'ہر وقت بیک اپ',
-    icon: (
+  ),
+  backup: (
       <>
         <path d="M12 8v4l3 3" />
         <path d="M21 12a9 9 0 1 1-9-9" />
         <path d="M21 3v6h-6" />
       </>
-    ),
-  },
-  {
-    label: 'آسان سپورٹ',
-    icon: (
+  ),
+  support: (
       <>
         <path d="M12 2a10 10 0 0 0-7.9 16.1L2 22l3.9-2.1A10 10 0 1 0 12 2Z" />
         <path d="M8 12h.01" />
         <path d="M12 12h.01" />
         <path d="M16 12h.01" />
       </>
-    ),
-  },
+  ),
+}
+
+const fallbackBenefits = [
+  { label: 'مفت ڈیمو', icon: 'download' },
+  { label: 'ہر وقت بیک اپ', icon: 'backup' },
+  { label: 'آسان سپورٹ', icon: 'support' },
 ]
 
-function DemoRequestSection({ demoSection }) {
+function DemoRequestSection({ demoSection, demoBenefits = [] }) {
   const [form, setForm] = useState(initialForm)
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [error, setError] = useState('')
   const content = demoSection || fallbackDemoSection
+  const benefits = demoBenefits.length ? demoBenefits : fallbackBenefits
 
   const handleChange = (event) => {
     const { name, value } = event.target
@@ -190,7 +188,7 @@ function DemoRequestSection({ demoSection }) {
                   <div key={benefit.label} className="grid place-items-center gap-2 text-center">
                     <span className="demo-benefit-icon">
                       <svg className="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" aria-hidden="true">
-                        {benefit.icon}
+                        {benefitIcons[benefit.icon] || benefitIcons.support}
                       </svg>
                     </span>
                     <span className="text-[1.05rem] font-bold text-white/90">{benefit.label}</span>

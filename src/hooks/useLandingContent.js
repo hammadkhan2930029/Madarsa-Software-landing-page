@@ -9,13 +9,16 @@ import {
 } from '../data/landingData'
 
 const fallbackLanding = {
+  settings: null,
   hero: null,
   heroImages: [],
   navLinks: navItems,
   stats: previewCards,
   sliderModules: slides,
   features,
+  featureSection: null,
   footer: null,
+  demoBenefits: [],
   contactItems: [],
   footerLinks,
 }
@@ -38,6 +41,8 @@ export function useLandingContent() {
           stats: landing.stats?.length ? landing.stats : fallbackLanding.stats,
           sliderModules: landing.sliderModules?.length ? landing.sliderModules : fallbackLanding.sliderModules,
           features: landing.features?.length ? landing.features : fallbackLanding.features,
+          featureSection: landing.featureSection || fallbackLanding.featureSection,
+          demoBenefits: landing.demoBenefits?.length ? landing.demoBenefits : fallbackLanding.demoBenefits,
           heroImages: landing.heroImages?.length ? landing.heroImages : fallbackLanding.heroImages,
         })
         setStatus('success')

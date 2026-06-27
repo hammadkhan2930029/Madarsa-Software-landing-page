@@ -53,7 +53,7 @@ function SystemSlider({ slidesData = slides }) {
         <div className="slider-copy page-reveal text-right [direction:rtl]">
           <div className="slider-copy-heading">
             <p className="text-[1.35rem] font-bold leading-9 text-themePrimary">سسٹم سلائیڈر</p>
-          <h2 className="mt-3 font-urdu text-[3rem] font-bold leading-[1.8] text-themeText">
+          <h2 className="mt-3 font-urdu text-[2.05rem] font-bold leading-[1.95] text-themeText sm:text-[3rem] sm:leading-[1.8]">
             {slide.title}
           </h2>
           </div>
@@ -61,7 +61,7 @@ function SystemSlider({ slidesData = slides }) {
             <span className="rounded-md bg-themePrimary/10 px-4 py-2 text-[1.25rem] font-bold leading-8 text-themePrimary">
               {slide.label}
             </span>
-            <h3 className="mt-7 max-w-2xl font-urdu text-[1.7rem] font-bold leading-[2.15] text-themeText">
+            <h3 className="mt-7 max-w-2xl font-urdu text-[1.35rem] font-bold leading-[2.1] text-themeText sm:text-[1.7rem]">
               {slide.description || slide.title}
             </h3>
             <div className="mt-8 flex items-end gap-4">

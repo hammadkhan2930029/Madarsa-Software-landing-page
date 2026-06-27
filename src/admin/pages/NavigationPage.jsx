@@ -5,7 +5,7 @@ import FilterBar from '../components/FilterBar'
 import PageHeader from '../components/PageHeader'
 import { editorFields, openEditorConfig } from '../constants/editorFields'
 
-function NavigationPage({ openEditor, navLinks: apiNavLinks, onDelete }) {
+function NavigationPage({ openEditor, navLinks: apiNavLinks, onDelete, onRestore }) {
   const rows = apiNavLinks?.length ? apiNavLinks : navLinks
 
   return (
@@ -22,6 +22,7 @@ function NavigationPage({ openEditor, navLinks: apiNavLinks, onDelete }) {
         rows={rows}
         onEdit={(row) => openEditorConfig(openEditor, 'مینو لنک کی ترمیم', editorFields.navigation, 'edit', row)}
         onDelete={onDelete}
+        onRestore={onRestore}
       />
     </>
   )
