@@ -9,6 +9,7 @@ import './Admin.css'
 
 const initialAdminContent = {
   hero: null,
+  heroImages: null,
   navLinks: null,
   stats: null,
   sliderSection: null,
@@ -56,6 +57,7 @@ function AdminPanel({ theme, onThemeToggle, location }) {
   const loadAdminContent = async () => {
     const [
       hero,
+      heroImages,
       navLinks,
       stats,
       sliderSection,
@@ -70,6 +72,7 @@ function AdminPanel({ theme, onThemeToggle, location }) {
       settings,
     ] = await Promise.all([
       api.list('hero'),
+      api.list('hero-images'),
       api.list('nav-links'),
       api.list('stats'),
       api.list('slider-section'),
@@ -86,6 +89,7 @@ function AdminPanel({ theme, onThemeToggle, location }) {
 
     setAdminContent({
       hero,
+      heroImages,
       navLinks,
       stats,
       sliderSection,

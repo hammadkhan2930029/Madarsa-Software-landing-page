@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import ActionButton from './ActionButton'
 import Badge from './Badge'
 import { getAssetUrl } from '../../utils/assetResolver'
@@ -37,6 +38,12 @@ function FormPanel({
 }) {
   const isSaving = status === 'saving'
   const isDeleting = status === 'deleting'
+  const [selectedFiles, setSelectedFiles] = useState({})
+  const [previewUrls, setPreviewUrls] = useState({})
+
+  useEffect(() => () => {
+    Object.values(previewUrls).forEach((url) => URL.revokeObjectURL(url))
+  }, [previewUrls])
 
   const handleSubmit = (event) => {
     event.preventDefault()
@@ -46,6 +53,24 @@ function FormPanel({
 
   const handleClear = (event) => {
     event.currentTarget.form?.reset()
+    Object.values(previewUrls).forEach((url) => URL.revokeObjectURL(url))
+    setSelectedFiles({})
+    setPreviewUrls({})
+  }
+
+  const handleFileChange = (event, fieldName) => {
+    const file = event.target.files?.[0]
+    setSelectedFiles((currentFiles) => ({ ...currentFiles, [fieldName]: file || null }))
+    setPreviewUrls((currentUrls) => {
+      if (currentUrls[fieldName]) {
+        URL.revokeObjectURL(currentUrls[fieldName])
+      }
+
+      return {
+        ...currentUrls,
+        [fieldName]: file ? URL.createObjectURL(file) : '',
+      }
+    })
   }
 
   return (
@@ -68,16 +93,24 @@ function FormPanel({
               />
             ) : field.type === 'file' ? (
               <div className="rounded-md border border-dashed border-themeBorder bg-themeBg p-4 transition focus-within:border-themePrimary hover:border-themePrimary">
-                <input id={field.label} name={field.name} type="file" accept={field.accept ?? 'image/*'} className="sr-only" />
+                <input
+                  id={field.label}
+                  name={field.name}
+                  type="file"
+                  accept={field.accept ?? 'image/*'}
+                  required={field.required && !field.value}
+                  onChange={(event) => handleFileChange(event, field.name)}
+                  className="sr-only"
+                />
                 <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
                   <div>
-                    <p className="text-theme-button font-bold text-themeText">{field.value ?? 'فائل منتخب نہیں ہوئی'}</p>
+                    <p className="text-theme-button font-bold text-themeText">{selectedFiles[field.name]?.name || field.value || 'فائل منتخب نہیں ہوئی'}</p>
                     <p className="text-theme-detail font-bold text-slate-500 dark:text-slate-400">
                       تصویر منتخب کریں یا موجودہ فائل تبدیل کریں
                     </p>
-                    {field.value && (
+                    {(previewUrls[field.name] || field.value) && (
                       <img
-                        src={getAssetUrl(field.value, field.value)}
+                        src={previewUrls[field.name] || getAssetUrl(field.value, field.value)}
                         alt=""
                         className="mt-3 h-24 w-40 rounded-md border border-themeBorder object-cover"
                       />

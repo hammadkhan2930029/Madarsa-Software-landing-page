@@ -11,7 +11,7 @@ import SliderPage from './SliderPage'
 import StatsPage from './StatsPage'
 
 export function getAdminPage(path, openEditor, data = {}, actions = {}) {
-  if (path === '/admin' || path === '/admin/hero') return <HeroPage openEditor={openEditor} hero={data.hero} />
+  if (path === '/admin' || path === '/admin/hero') return <HeroPage openEditor={openEditor} hero={data.hero} heroImages={data.heroImages} onDelete={(row) => actions.deleteRecord?.('hero-images', row)} onRestore={(row) => actions.restoreRecord?.('hero-images', row)} />
   if (path === '/admin/navigation') return <NavigationPage openEditor={openEditor} navLinks={data.navLinks} onDelete={(row) => actions.deleteRecord?.('nav-links', row)} onRestore={(row) => actions.restoreRecord?.('nav-links', row)} />
   if (path === '/admin/stats') return <StatsPage openEditor={openEditor} stats={data.stats} onDelete={(row) => actions.deleteRecord?.('stats', row)} onRestore={(row) => actions.restoreRecord?.('stats', row)} />
   if (path === '/admin/slider') return <SliderPage openEditor={openEditor} sliderSection={data.sliderSection} sliderModules={data.sliderModules} onDelete={(row) => actions.deleteRecord?.('slider-modules', row)} onRestore={(row) => actions.restoreRecord?.('slider-modules', row)} />

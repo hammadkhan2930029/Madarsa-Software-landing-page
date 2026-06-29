@@ -7,7 +7,12 @@ export const editorFields = {
     { label: 'تفصیل', value: heroContent.description, type: 'textarea' },
     { label: 'بنیادی بٹن کا متن', value: heroContent.primaryCta },
     { label: 'دوسرے بٹن کا متن', value: heroContent.secondaryCta },
-    { label: 'ہیرو تصویر کی فائل', value: heroContent.image, type: 'file' },
+  ],
+  heroImages: [
+    { label: 'ہیرو تصویر', type: 'file', required: true },
+    { label: 'تصویر کا متبادل متن' },
+    { label: 'ترتیب نمبر', type: 'number' },
+    { label: 'حالت', placeholder: 'active / inactive' },
   ],
   navigation: [{ label: 'نام' }, { label: 'لنک' }, { label: 'مقام' }, { label: 'ترتیب نمبر' }],
   stats: [{ label: 'کارڈ کا نام' }, { label: 'کارڈ کی قدر' }, { label: 'ترتیب نمبر' }, { label: 'حالت' }],
@@ -91,7 +96,14 @@ function getFieldKeys(fields) {
       ['description'],
       ['primaryCta'],
       ['secondaryCta'],
-      ['image', 'imageUrl'],
+    ]
+  }
+  if (fields === editorFields.heroImages) {
+    return [
+      ['imageUrl', 'image'],
+      ['altText'],
+      ['sortOrder', 'order'],
+      ['status'],
     ]
   }
   if (fields === editorFields.navigation) {
@@ -147,7 +159,10 @@ function getFieldKeys(fields) {
 
 function getFieldNames(fields) {
   if (fields === editorFields.hero) {
-    return ['kicker', 'title', 'description', 'primaryCta', 'secondaryCta', '']
+    return ['kicker', 'title', 'description', 'primaryCta', 'secondaryCta']
+  }
+  if (fields === editorFields.heroImages) {
+    return ['imageUrl', 'altText', 'sortOrder', 'status']
   }
   if (fields === editorFields.navigation) {
     return ['label', 'href', 'placement', 'sortOrder']
@@ -190,6 +205,7 @@ function getFieldNames(fields) {
 
 function getEditorMeta(fields) {
   if (fields === editorFields.hero) return { resource: 'hero', singleton: true }
+  if (fields === editorFields.heroImages) return { resource: 'hero-images' }
   if (fields === editorFields.navigation) return { resource: 'nav-links' }
   if (fields === editorFields.stats) return { resource: 'stats' }
   if (fields === editorFields.sliderSection) return { resource: 'slider-section', singleton: true }

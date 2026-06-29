@@ -2,6 +2,7 @@
 const BASE_URL = 'https://api.madrasasoftware.com/api'
 
 const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL || BASE_URL).replace(/\/+$/, '')
+const API_ORIGIN = API_BASE_URL.replace(/\/api\/?$/, '')
 const ADMIN_TOKEN_KEY = 'madarsa_admin_token'
 
 function getAdminToken() {
@@ -65,8 +66,16 @@ export const api = {
 
 export function resolveAssetUrl(file) {
   if (!file) return ''
-  if (/^(https?:)?\/\//.test(file) || file.startsWith('data:') || file.startsWith('/uploads/')) {
-    return file.startsWith('/uploads/') ? `${API_BASE_URL.replace('/api', '')}${file}` : file
+  const normalizedFile = String(file).trim().replace(/\\/g, '/')
+
+  if (/^(https?:)?\/\//.test(normalizedFile) || normalizedFile.startsWith('data:')) {
+    return normalizedFile
   }
+
+  if (normalizedFile.startsWith('/uploads/') || normalizedFile.startsWith('uploads/')) {
+    const uploadPath = normalizedFile.startsWith('/') ? normalizedFile : `/${normalizedFile}`
+    return `${API_ORIGIN}${uploadPath}`
+  }
+
   return null
 }
