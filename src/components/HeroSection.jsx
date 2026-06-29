@@ -205,7 +205,7 @@ function HeroSection({ hero, heroImages = [], stats = previewCards }) {
                 <p className="text-theme-detail font-bold text-slate-500 dark:text-slate-400">
                   {card.name}
                 </p>
-                <p className="mt-1 text-[1.55rem] font-black leading-tight text-themePrimary">
+                <p className="mt-1 text-[1.4rem] font-black leading-tight text-themePrimary">
                   {card.value}
                 </p>
               </div>

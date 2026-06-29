@@ -92,7 +92,7 @@ function SystemSlider({ slidesData = slides, section }) {
                 {slide.description}
               </p>
             )}
-            <div className="mt-8 flex items-end gap-4">
+            <div className="mt-4 flex items-end gap-4  p-1">
               <p className="text-[3rem] font-black leading-none text-themePrimary">
                 {slide.stat}
               </p>
