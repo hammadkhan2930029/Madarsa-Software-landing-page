@@ -10,7 +10,7 @@ const fallbackImages = [
 ]
 
 const fallbackSection = {
-  kicker: 'سسٹم ماڈیولز',
+  kicker: "",
   headingLineOne: '',
   headingLineTwo: '',
   alignment: 'right',

@@ -108,7 +108,7 @@ function getFieldKeys(fields) {
       ['description'],
       ['stat'],
       ['statLabel'],
-      ['imageUrl', 'image'],
+      ['image'],
       ['altText'],
       ['isDefault'],
       ['sortOrder', 'order'],
