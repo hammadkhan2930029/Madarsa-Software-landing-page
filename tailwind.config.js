@@ -5,9 +5,9 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        urdu: ['"Jameel Noori Nastaleeq"', '"Noto Nastaliq Urdu"', 'serif'],
-        arabic: ['"Jameel Noori Nastaleeq"', '"Noto Nastaliq Urdu"', 'serif'],
-        marhey: ['"Jameel Noori Nastaleeq"', '"Noto Nastaliq Urdu"', 'serif'],
+        urdu: ['"JameelNooriNastaleeq"', '"Jameel Noori Nastaleeq"', '"Noto Nastaliq Urdu"', 'serif'],
+        arabic: ['"JameelNooriNastaleeq"', '"Jameel Noori Nastaleeq"', '"Noto Nastaliq Urdu"', 'serif'],
+        marhey: ['"JameelNooriNastaleeq"', '"Jameel Noori Nastaleeq"', '"Noto Nastaliq Urdu"', 'serif'],
       },
       boxShadow: {
         theme: 'var(--shadow-main)',

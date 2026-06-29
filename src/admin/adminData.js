@@ -125,6 +125,9 @@ export const footerContent = {
   ctaKicker: 'مدرسہ مینجمنٹ کو آج ہی آسان بنائیں',
   ctaTitle: 'مکمل ڈیمو دیکھیں اور اپنی ٹیم کے لیے بہترین فلو منتخب کریں۔',
   ctaButton: 'ڈیمو درخواست دیں',
+  ctaVideoUrl: 'https://www.youtube.com/watch?v=ysz5S6PUM-U',
+  ctaImageUrl: 'dashboard1.png',
+  ctaImageAlt: 'مدرسہ سافٹ ویئر ڈیش بورڈ پریویو',
   description: 'جدید مدرسہ مینجمنٹ کے لیے مکمل سافٹ ویئر حل۔',
   copyright: '© 2026 مدرسہ سافٹ ویئر۔ تمام حقوق محفوظ ہیں۔',
 }

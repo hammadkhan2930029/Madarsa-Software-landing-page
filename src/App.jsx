@@ -192,7 +192,10 @@ function App() {
             heroImages={landingContent.heroImages}
             stats={landingContent.stats}
           />
-          <SystemSlider slidesData={landingContent.sliderModules} />
+          <SystemSlider
+            slidesData={landingContent.sliderModules}
+            section={landingContent.sliderSection}
+          />
           <FeaturesSection
             featuresData={landingContent.features}
             featureSection={landingContent.featureSection}

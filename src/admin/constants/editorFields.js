@@ -12,12 +12,23 @@ export const editorFields = {
   navigation: [{ label: 'نام' }, { label: 'لنک' }, { label: 'مقام' }, { label: 'ترتیب نمبر' }],
   stats: [{ label: 'کارڈ کا نام' }, { label: 'کارڈ کی قدر' }, { label: 'ترتیب نمبر' }, { label: 'حالت' }],
   slider: [
-    { label: 'ماڈیول نام' },
-    { label: 'عنوان', type: 'textarea' },
+    { label: 'ٹیب کا نام', required: true },
+    { label: 'مرکزی عنوان', type: 'textarea' },
+    { label: 'کارڈ کا عنوان', type: 'textarea' },
+    { label: 'کارڈ کی تفصیل', type: 'textarea' },
     { label: 'عدد' },
     { label: 'عدد کا لیبل' },
-    { label: 'تصویر کی فائل', type: 'file' },
-    { label: 'ترتیب' },
+    { label: 'پریویو تصویر', type: 'file' },
+    { label: 'تصویر کا متبادل متن' },
+    { label: 'ڈیفالٹ ٹیب', placeholder: '1 یا 0' },
+    { label: 'ترتیب نمبر', type: 'number' },
+    { label: 'حالت', placeholder: 'active / inactive' },
+  ],
+  sliderSection: [
+    { label: 'چھوٹا لیبل', value: 'سسٹم ماڈیولز', required: true },
+    { label: 'مرکزی عنوان - لائن 1', type: 'textarea' },
+    { label: 'مرکزی عنوان - لائن 2', type: 'textarea' },
+    { label: 'عنوان کی سمت', placeholder: 'right / center / left' },
   ],
   featureSection: [
     { label: 'بالائی متن', value: 'اہم خصوصیات' },
@@ -47,6 +58,9 @@ export const editorFields = {
     { label: 'CTA بالائی متن', value: footerContent.ctaKicker },
     { label: 'CTA عنوان', value: footerContent.ctaTitle, type: 'textarea' },
     { label: 'CTA بٹن', value: footerContent.ctaButton },
+    { label: 'CTA ویڈیو لنک', value: footerContent.ctaVideoUrl, placeholder: 'https://www.youtube.com/watch?v=...' },
+    { label: 'CTA تصویر', value: footerContent.ctaImageUrl, type: 'file' },
+    { label: 'CTA تصویر کا متبادل متن', value: footerContent.ctaImageAlt },
     { label: 'فوٹر تفصیل', value: footerContent.description, type: 'textarea' },
     { label: 'کاپی رائٹ متن', value: footerContent.copyright },
   ],
@@ -87,7 +101,22 @@ function getFieldKeys(fields) {
     return [['name'], ['value'], ['sortOrder', 'order'], ['status']]
   }
   if (fields === editorFields.slider) {
-    return [['label'], ['title'], ['stat'], ['statLabel'], ['imageUrl', 'image'], ['sortOrder', 'order']]
+    return [
+      ['label'],
+      ['title'],
+      ['cardHeading'],
+      ['description'],
+      ['stat'],
+      ['statLabel'],
+      ['imageUrl', 'image'],
+      ['altText'],
+      ['isDefault'],
+      ['sortOrder', 'order'],
+      ['status'],
+    ]
+  }
+  if (fields === editorFields.sliderSection) {
+    return [['kicker'], ['headingLineOne'], ['headingLineTwo'], ['alignment']]
   }
   if (fields === editorFields.features) {
     return [['title'], ['description'], ['sortOrder', 'order', 'value'], ['status']]
@@ -102,7 +131,7 @@ function getFieldKeys(fields) {
     return [['label'], ['icon'], ['sortOrder', 'order'], ['status']]
   }
   if (fields === editorFields.footer) {
-    return [['ctaKicker'], ['ctaTitle'], ['ctaButton'], ['description'], ['copyright']]
+    return [['ctaKicker'], ['ctaTitle'], ['ctaButton'], ['ctaVideoUrl'], ['ctaImageUrl'], ['ctaImageAlt'], ['description'], ['copyright']]
   }
   if (fields === editorFields.contact) {
     return [['label'], ['value'], ['helper'], ['status']]
@@ -127,7 +156,10 @@ function getFieldNames(fields) {
     return ['name', 'value', 'sortOrder', 'status']
   }
   if (fields === editorFields.slider) {
-    return ['label', 'title', 'stat', 'statLabel', 'imageUrl', 'sortOrder']
+    return ['label', 'title', 'cardHeading', 'description', 'stat', 'statLabel', 'imageUrl', 'altText', 'isDefault', 'sortOrder', 'status']
+  }
+  if (fields === editorFields.sliderSection) {
+    return ['kicker', 'headingLineOne', 'headingLineTwo', 'alignment']
   }
   if (fields === editorFields.features) {
     return ['title', 'description', 'sortOrder', 'status']
@@ -142,7 +174,7 @@ function getFieldNames(fields) {
     return ['label', 'icon', 'sortOrder', 'status']
   }
   if (fields === editorFields.footer) {
-    return ['ctaKicker', 'ctaTitle', 'ctaButton', 'description', 'copyright']
+    return ['ctaKicker', 'ctaTitle', 'ctaButton', 'ctaVideoUrl', 'ctaImageUrl', 'ctaImageAlt', 'description', 'copyright']
   }
   if (fields === editorFields.contact) {
     return ['label', 'value', 'helper', 'status']
@@ -160,6 +192,7 @@ function getEditorMeta(fields) {
   if (fields === editorFields.hero) return { resource: 'hero', singleton: true }
   if (fields === editorFields.navigation) return { resource: 'nav-links' }
   if (fields === editorFields.stats) return { resource: 'stats' }
+  if (fields === editorFields.sliderSection) return { resource: 'slider-section', singleton: true }
   if (fields === editorFields.slider) return { resource: 'slider-modules' }
   if (fields === editorFields.features) return { resource: 'features' }
   if (fields === editorFields.featureSection) return { resource: 'feature-section', singleton: true }

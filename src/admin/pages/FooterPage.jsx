@@ -23,6 +23,9 @@ function FooterPage({ openEditor, footer }) {
           { label: 'CTA بالائی متن', value: content.ctaKicker },
           { label: 'CTA عنوان', value: content.ctaTitle },
           { label: 'CTA بٹن', value: content.ctaButton },
+          { label: 'CTA ویڈیو لنک', value: content.ctaVideoUrl || 'شامل نہیں کیا گیا' },
+          { label: 'CTA تصویر', value: content.ctaImageUrl || 'شامل نہیں کی گئی' },
+          { label: 'CTA تصویر کا متبادل متن', value: content.ctaImageAlt || 'شامل نہیں کیا گیا' },
           { label: 'فوتر تفصیل', value: content.description },
           { label: 'کاپی رائٹ متن', value: content.copyright },
         ]}

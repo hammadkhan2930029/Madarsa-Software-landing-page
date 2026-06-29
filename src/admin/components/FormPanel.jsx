@@ -1,5 +1,6 @@
 import ActionButton from './ActionButton'
 import Badge from './Badge'
+import { getAssetUrl } from '../../utils/assetResolver'
 
 function getPayload(form, fields) {
   const payload = {}
@@ -63,6 +64,7 @@ function FormPanel({
                 className="min-h-32 w-full rounded-md border border-themeBorder bg-themeBg px-4 py-3 text-right text-theme-button text-themeText outline-none transition focus:border-themePrimary"
                 placeholder={field.placeholder}
                 defaultValue={field.value ?? ''}
+                required={field.required}
               />
             ) : field.type === 'file' ? (
               <div className="rounded-md border border-dashed border-themeBorder bg-themeBg p-4 transition focus-within:border-themePrimary hover:border-themePrimary">
@@ -73,6 +75,13 @@ function FormPanel({
                     <p className="text-theme-detail font-bold text-slate-500 dark:text-slate-400">
                       تصویر منتخب کریں یا موجودہ فائل تبدیل کریں
                     </p>
+                    {field.value && (
+                      <img
+                        src={getAssetUrl(field.value, field.value)}
+                        alt=""
+                        className="mt-3 h-24 w-40 rounded-md border border-themeBorder object-cover"
+                      />
+                    )}
                   </div>
                   <label htmlFor={field.label} className="cursor-pointer rounded-md bg-themePrimary px-4 py-2 text-center text-theme-button font-bold text-white shadow-card-theme transition hover:bg-themePrimaryHover">
                     فائل امپورٹ کریں
@@ -82,9 +91,11 @@ function FormPanel({
             ) : (
               <input
                 name={field.name}
+                type={field.type === 'number' ? 'number' : 'text'}
                 className="w-full rounded-md border border-themeBorder bg-themeBg px-4 py-3 text-right text-theme-button text-themeText outline-none transition focus:border-themePrimary"
                 placeholder={field.placeholder}
                 defaultValue={field.value ?? ''}
+                required={field.required}
               />
             )}
           </label>

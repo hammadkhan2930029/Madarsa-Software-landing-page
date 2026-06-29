@@ -23,7 +23,7 @@
   --accent-border: rgba(0, 168, 118, 0.45);
   --social-bg: rgba(255, 255, 255, 0.72);
   --shadow: var(--shadow-card);
-  font: 17px/170% 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif;
+  font: 17px/170% var(--urdu);
   letter-spacing: 0;
   color-scheme: light;
   color: var(--text);
@@ -86,7 +86,7 @@
 
 .site-shell h1,
 .site-shell h2 {
-  font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif;
+  font-family: var(--heading);
   color: var(--text-h);
 }
 

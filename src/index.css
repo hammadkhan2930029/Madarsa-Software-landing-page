@@ -1,12 +1,20 @@
 @import "tailwindcss";
 @config "../tailwind.config.js";
 
+@font-face {
+  font-family: "JameelNooriNastaleeq";
+  src: url("/fonts/JameelNooriNastaleeq.ttf") format("truetype");
+  font-weight: 400 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
 @theme {
-  --font-urdu: "Jameel Noori Nastaleeq", "Noto Nastaliq Urdu", serif;
-  --font-arabic: "Jameel Noori Nastaleeq", "Noto Nastaliq Urdu", serif;
-  --font-marhey: "Jameel Noori Nastaleeq", "Noto Nastaliq Urdu", serif;
+  --font-urdu: "JameelNooriNastaleeq", "Jameel Noori Nastaleeq", "Noto Nastaliq Urdu", serif;
+  --font-arabic: "JameelNooriNastaleeq", "Jameel Noori Nastaleeq", "Noto Nastaliq Urdu", serif;
+  --font-marhey: "JameelNooriNastaleeq", "Jameel Noori Nastaleeq", "Noto Nastaliq Urdu", serif;
 
   --text-theme-title: clamp(1.55rem, 1.1rem + 1.15vw, 2.35rem);
   --text-theme-title--line-height: 1.75;
@@ -56,9 +64,9 @@
   --social-bg: rgba(255, 255, 255, 0.72);
   --shadow: var(--shadow-card);
 
-  --sans: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif;
-  --heading: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif;
-  --urdu: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif;
+  --sans: 'JameelNooriNastaleeq', 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif;
+  --heading: 'JameelNooriNastaleeq', 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif;
+  --urdu: 'JameelNooriNastaleeq', 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif;
   --mono: ui-monospace, Consolas, monospace;
 
   font: 17px/1.75 var(--sans);
@@ -154,7 +162,7 @@ body {
   background: var(--color-bg);
   color: var(--color-text-main);
   direction: rtl;
-  font-family: 'Jameel Noori Nastaleeq', 'Noto Nastaliq Urdu', serif;
+  font-family: var(--urdu);
 }
 
 #root {

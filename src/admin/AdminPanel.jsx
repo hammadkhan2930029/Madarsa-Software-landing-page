@@ -11,6 +11,7 @@ const initialAdminContent = {
   hero: null,
   navLinks: null,
   stats: null,
+  sliderSection: null,
   sliderModules: null,
   features: null,
   featureSection: null,
@@ -57,6 +58,7 @@ function AdminPanel({ theme, onThemeToggle, location }) {
       hero,
       navLinks,
       stats,
+      sliderSection,
       sliderModules,
       features,
       featureSection,
@@ -70,6 +72,7 @@ function AdminPanel({ theme, onThemeToggle, location }) {
       api.list('hero'),
       api.list('nav-links'),
       api.list('stats'),
+      api.list('slider-section'),
       api.list('slider-modules'),
       api.list('features'),
       api.list('feature-section'),
@@ -85,6 +88,7 @@ function AdminPanel({ theme, onThemeToggle, location }) {
       hero,
       navLinks,
       stats,
+      sliderSection,
       sliderModules,
       features,
       featureSection,
@@ -151,9 +155,9 @@ function AdminPanel({ theme, onThemeToggle, location }) {
     for (const [fieldName, file] of entries) {
       const formData = new FormData()
       formData.append('file', file)
-      formData.append('name', payload.name || payload.altText || file.name)
+      formData.append('name', payload.name || payload.altText || payload.ctaImageAlt || file.name)
       formData.append('usedIn', payload.usedIn || config.resource || fieldName)
-      formData.append('altText', payload.altText || payload.name || file.name)
+      formData.append('altText', payload.altText || payload.ctaImageAlt || payload.name || file.name)
       formData.append('type', payload.type || 'image')
       formData.append('status', payload.status || 'active')
 
