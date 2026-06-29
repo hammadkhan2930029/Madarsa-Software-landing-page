@@ -10,7 +10,7 @@ const fallbackImages = [
 ]
 
 const fallbackSection = {
-  kicker: "",
+  kicker: "سسٹم سلائڈر",
   headingLineOne: '',
   headingLineTwo: '',
   alignment: 'right',
@@ -60,11 +60,10 @@ function SystemSlider({ slidesData = slides, section }) {
                   setHasUserSelectedSlide(true)
                   setActiveSlide(index)
                 }}
-                className={`slider-tab rounded-md border px-3 py-3 text-theme-button font-bold transition ${
-                  safeActiveSlide === index
+                className={`slider-tab rounded-md border px-3 py-3 text-theme-button font-bold transition ${safeActiveSlide === index
                     ? 'border-themePrimary bg-themePrimary text-white'
                     : 'border-themeBorder bg-themeSurface text-themeText hover:border-themePrimary'
-                }`}
+                  }`}
               >
                 {item.label}
               </button>
