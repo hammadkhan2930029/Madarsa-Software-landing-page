@@ -5,6 +5,7 @@ export const navItems = [
   { label: 'سلائیڈر ماڈیولز', path: '/admin/slider', icon: 'س' },
   { label: 'خصوصیات کارڈز', path: '/admin/features', icon: 'خ' },
   { label: 'ڈیمو فارم', path: '/admin/demo-section', icon: 'ف' },
+  { label: 'ڈیمو درخواستیں', path: '/admin/demo-requests', icon: 'د' },
   { label: 'فوٹر مواد', path: '/admin/footer', icon: 'ٹ' },
   { label: 'رابطہ تفصیلات', path: '/admin/contact', icon: 'ر' },
   { label: 'میڈیا اثاثے', path: '/admin/media', icon: 'ع' },

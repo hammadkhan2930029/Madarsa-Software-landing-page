@@ -4,4 +4,5 @@ export const statusText = {
   hidden: 'مخفی',
   yes: 'لازمی',
   no: 'اختیاری',
+  new: 'نئی درخواست',
 }

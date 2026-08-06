@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { navItems } from '../data/landingData'
 import { localAssets } from '../utils/assetResolver'
 
-const DEMO_BOOKING_URL = 'http://demo.madrasasoftware.com/admin'
+const DEMO_BOOKING_URL = '/#demo'
 
 const getRouteHref = (href, label) => {
   if (label === 'ڈیمو' && href === '#contact') return '/#demo'
@@ -56,15 +56,16 @@ function Navbar({ theme, onNavigate, navLinks = navItems }) {
         </div>
 
         <div className="hidden items-center gap-3 md:flex">
-          <a
+          {/* <a
             href="/admin"
             onClick={(event) => handleRouteClick(event, '/admin')}
             className="rounded-md border border-themeBorder bg-themeSurface px-5 py-2.5 text-[1.08rem] font-bold leading-7 text-themeText shadow-card-theme transition hover:border-themePrimary hover:text-themePrimary"
           >
             لاگ اِن
-          </a>
+          </a> */}
           <a
             href={DEMO_BOOKING_URL}
+            onClick={(event) => handleRouteClick(event, DEMO_BOOKING_URL)}
             className="rounded-md bg-themePrimary px-5 py-2.5 text-[1.08rem] font-bold leading-7 text-white shadow-card-theme transition hover:bg-themePrimaryHover"
           >
             ڈیمو بک کریں
@@ -127,7 +128,7 @@ function Navbar({ theme, onNavigate, navLinks = navItems }) {
 
             <a
               href={DEMO_BOOKING_URL}
-              onClick={() => setIsMenuOpen(false)}
+              onClick={(event) => handleRouteClick(event, DEMO_BOOKING_URL)}
               className="mt-5 block rounded-md bg-themePrimary px-4 py-3 text-center text-theme-button font-bold text-white shadow-card-theme transition hover:bg-themePrimaryHover"
             >
               ڈیمو بک کریں

@@ -1,4 +1,4 @@
-function AdminTable({ columns, rows, onEdit, onDelete, onRestore }) {
+function AdminTable({ columns, rows, onEdit, onDelete, onRestore, showActions = true }) {
   return (
     <div className="admin-table-wrap rounded-xl border border-themeBorder bg-themeSurface/95 shadow-card-theme">
       <table className="admin-table w-full border-collapse text-right">
@@ -9,7 +9,7 @@ function AdminTable({ columns, rows, onEdit, onDelete, onRestore }) {
                 {column.label}
               </th>
             ))}
-            <th className="border-b border-themeBorder px-4 py-3 text-theme-button font-black text-themeText">عمل</th>
+            {showActions && <th className="border-b border-themeBorder px-4 py-3 text-theme-button font-black text-themeText">عمل</th>}
           </tr>
         </thead>
         <tbody>
@@ -20,7 +20,7 @@ function AdminTable({ columns, rows, onEdit, onDelete, onRestore }) {
                   {column.render ? column.render(row) : row[column.key]}
                 </td>
               ))}
-              <td className="border-b border-themeBorder px-4 py-3">
+              {showActions && <td className="border-b border-themeBorder px-4 py-3">
                 <div className="flex gap-2">
                   <button type="button" onClick={() => onEdit?.(row)} className="rounded-md border border-themeBorder bg-themeBg px-3 py-1.5 text-theme-detail font-bold text-themeText transition hover:border-themePrimary hover:text-themePrimary">
                     ترمیم
@@ -35,7 +35,7 @@ function AdminTable({ columns, rows, onEdit, onDelete, onRestore }) {
                     </button>
                   )}
                 </div>
-              </td>
+              </td>}
             </tr>
           ))}
         </tbody>

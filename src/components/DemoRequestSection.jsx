@@ -2,11 +2,16 @@ import { useState } from 'react'
 import dashboardPreview from '../assets/dashboard2.png'
 import { api } from '../services/api'
 
-const initialForm = {
-  name: '',
-  phone: '',
-  email: '',
-  madarsa: '',
+const getInitialForm = () => {
+  const referralCode = new URLSearchParams(window.location.search).get('ref')?.trim() || ''
+
+  return {
+    name: '',
+    phone: '',
+    email: '',
+    madarsa: '',
+    referralCode,
+  }
 }
 
 const fallbackDemoSection = {
@@ -49,7 +54,7 @@ const fallbackBenefits = [
 ]
 
 function DemoRequestSection({ demoSection, demoBenefits = [] }) {
-  const [form, setForm] = useState(initialForm)
+  const [form, setForm] = useState(getInitialForm)
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [error, setError] = useState('')
@@ -69,7 +74,7 @@ function DemoRequestSection({ demoSection, demoBenefits = [] }) {
     try {
       await api.createDemoRequest(form)
       setIsSubmitted(true)
-      setForm(initialForm)
+      setForm(getInitialForm())
     } catch (apiError) {
       setError(apiError.message || 'درخواست مکمل نہیں ہو سکی')
     } finally {
@@ -110,7 +115,7 @@ function DemoRequestSection({ demoSection, demoBenefits = [] }) {
                   onChange={handleChange}
                   required
                   className="w-full rounded-md border border-slate-200 bg-white px-4 py-3 text-right text-theme-button text-slate-800 outline-none transition focus:border-themePrimary focus:ring-4 focus:ring-emerald-100"
-                  dir="rtl"
+                  dir="ltr"
                   placeholder="+92-331-9998780"
                 />
               </label>
@@ -138,6 +143,17 @@ function DemoRequestSection({ demoSection, demoBenefits = [] }) {
                   required
                   className="w-full rounded-md border border-slate-200 bg-white px-4 py-3 text-right text-theme-button text-slate-800 outline-none transition focus:border-themePrimary focus:ring-4 focus:ring-emerald-100"
                   placeholder="مدرسہ / ادارہ کا نام"
+                />
+              </label>
+
+              <label className="block">
+                <span className="sr-only">ریفرل کوڈ</span>
+                <input
+                  name="referralCode"
+                  value={form.referralCode}
+                  onChange={handleChange}
+                  className="w-full rounded-md border border-slate-200 bg-white px-4 py-3 text-right text-theme-button text-slate-800 outline-none transition focus:border-themePrimary focus:ring-4 focus:ring-emerald-100"
+                  placeholder="ریفرل کوڈ"
                 />
               </label>
             </div>
