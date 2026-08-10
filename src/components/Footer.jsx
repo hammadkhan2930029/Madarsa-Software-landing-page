@@ -55,7 +55,7 @@ function Footer({ theme, onNavigate, footer, navLinks = footerLinks, contactItem
   const ctaImageUrl = getAssetUrl(content.ctaImageUrl, localAssets.dashboardOne)
   const videoEmbedUrl = useMemo(() => getVideoEmbedUrl(ctaVideoUrl), [ctaVideoUrl])
   const visibleLinks = navLinks.length ? navLinks : footerLinks
-  const email = contactItems.find((item) => item.label?.includes('میل'))?.value || 'info@madrasasoftware.com'
+  const email = contactItems.find((item) => item.label?.includes('میل'))?.value || 'cogentdevs@gmail.com'
   const phone = contactItems.find((item) => item.label?.includes('فون'))?.value || '+92-331-9998780'
   const address = contactItems.find((item) => item.label?.includes('پتہ'))?.value
     || 'R-5, Row 5, Block D, NCECHS, Gulshan-e-Iqbal Block 10A, Rashid Minhas Road, Karachi, Pakistan.'

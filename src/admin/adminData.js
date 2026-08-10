@@ -133,7 +133,7 @@ export const footerContent = {
 }
 
 export const contactContent = [
-  { label: 'ای میل', value: 'info@madrasasoftware.com', helper: 'ڈیمو اور سپورٹ درخواست کے لیے', status: 'active' },
+  { label: 'ای میل', value: 'cogentdevs@gmail.com', helper: 'ڈیمو اور سپورٹ درخواست کے لیے', status: 'active' },
   { label: 'فون', value: '+92-331-9998780', helper: 'سیلز ٹیم سے براہ راست رابطہ', status: 'active' },
   { label: 'مقام', value: 'کراچی، پاکستان', helper: 'آن لائن ڈیمو دستیاب ہے', status: 'active' },
   {

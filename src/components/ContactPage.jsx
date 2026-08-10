@@ -3,7 +3,7 @@ import DemoRequestSection from './DemoRequestSection'
 const fallbackContactCards = [
   {
     label: 'ای میل',
-    value: 'info@madrasasoftware.com',
+    value: 'cogentdevs@gmail.com',
     helper: 'ڈیمو اور سپورٹ درخواست کے لیے',
     direction: 'ltr',
   },
